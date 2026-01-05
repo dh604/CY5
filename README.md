@@ -1,3 +1,3 @@
 # CY5
 
-[![Build Status](https://github.com/dh604/CY5.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/dh604/CY5.jl/actions/workflows/CI.yml?query=branch%3Amain)
+A Julia package to compute some GW invariants of CY 5-folds in joint work with Yannik Schuler. We build on the Julia package [GKMtools.jl](https://mgemath.github.io/GKMtools.jl/) by Giosuè Muratore and Daniel Holmes to compute connected GW invariants of GKM spaces via localization.
