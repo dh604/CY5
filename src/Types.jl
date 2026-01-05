@@ -1,0 +1,1 @@
+CC = GKMtools.CurveClass_type

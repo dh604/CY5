@@ -5,9 +5,11 @@ version = "1.0.0-DEV"
 
 [deps]
 GKMtools = "cb0ce832-b756-443a-91cf-e9266e6225ad"
+Oscar = "f1435218-dba5-11e9-1e4d-f1a5fab5fc13"
 
 [compat]
 GKMtools = "0.15.1"
+Oscar = "1.6.0"
 julia = "1.6.7"
 
 [extras]
