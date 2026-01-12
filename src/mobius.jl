@@ -286,3 +286,21 @@ function cc_mobius_test_rand(n_trials::Int64)
     cc_mobius_test(d)
   end
 end
+
+# return a copy of `betas` which is extended to contain all curve classes
+# that have a positive multiple in `beta`.
+function downward_close_ccs(betas::Vector{T})::Vector{T} where T<:CC
+  res = Vector{CC}()
+
+  for b in betas
+    @req !iszero(b) "betas must not contain zero"
+    divs = divisors(gcd_curve_class(b))
+    tba = [(parent(b))([b[i] ÷ d for i in 1:ngens(parent(b))]) for d in divs]
+    for bb in tba
+      bb in res && continue
+      push!(res, bb)
+    end
+  end
+
+  return res
+end
