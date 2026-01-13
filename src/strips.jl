@@ -129,6 +129,77 @@ function gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtool
   return res
 end
 
+@doc raw"""
+    Ar_times_C3(r::Int64)
+
+Return $A_r\times\mathbb{C}^3$, where $r$ is the number of rational curves in the chain.
+"""
+function Ar_times_C3(r::Int64)
+  return gkm_5d_strip([-(r+1)]; equiCY = true)
+end
+  
+@doc raw"""
+    Ar_times_C1(r::Int64)
+
+Return $A_r\times\mathbb{C}^1$, where $r$ is the number of rational curves in the chain.
+"""
+function Ar_times_C1(r::Int64)
+  return gkm_3d_strip([-(r+1)])
+end
+
+
+@doc raw"""
+    Ar_times_C3(r::Int64)
+
+Return a chain of $\mathcal{O}(-1)\oplus\mathcal{O}(-1)$ bundles of length $r$, product with $\mathbb{C}^2$.
+"""
+function minus_one_minus_one_chain(r::Int64)
+  uad = ones(Int64, r+1)
+  for i in 1:length(uad)
+    uad[i] *= (-1)^i
+  end
+  return gkm_5d_strip(uad; equiCY = true)
+end
+
+function gkm_Ar(r::Int64)
+  G = empty_gkm_graph(r+1, 2, ["$i" for i in 1:r+1])
+  g1, g2 = gens(G.M)
+  for i in 1:r
+    add_edge!(G, i, i+1, -g1 + i*g2)
+  end
+  add_standalone_flag!(G, 1, g1)
+  add_standalone_flag!(G, r+1, -g1 + (r+1)*g2)
+  return G
+end
+
+
+"""
+    X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
+
+!!! warning
+    For `equiCY=true`, this requires `X` to be CY already.
+"""
+function X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
+  G = X * gkm_Ar(r)
+
+  if equiCY
+    M = G.M
+    g = gens(M)
+    c1 = sum(G.weights_at_vertex[1])
+    subst_vect = [g[i] for i in 1:length(g)]
+    subst_vect[length(g)] -= c1
+    f = ModuleHomomorphism(M, M, subst_vect)
+    G = substitute_torus(G, f)
+    t = gens(G.equivariantCohomology.coeffRing)
+    equiCY_subst = [t[i] for i in 1:length(g)]
+    equiCY_subst[length(g)] -= sum(i -> c1[i] * t[i], 1:length(g))
+    set_attribute!(G, :equiCY_substitution, equiCY_subst)
+  end
+
+  set_attribute!(G, :example_type, :X_times_Ar)
+  return G
+end
+
 # # TODO: implement
 # function gkm_p1_chain()
 

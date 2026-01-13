@@ -10,6 +10,10 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
 
   if et == :gkm_5d_strip_from_3d_CY
     return gkm_5d_strip_prediction(G, t, u, beta, max_genus)
+  elseif et == :X_times_Ar
+    return zero(u)
+  elseif et == :closed_vertex
+    return gkm_5d_closed_vertex_prediction(G, t, u, beta, max_genus)
   else
     error("Example type $et is not implemented.")
   end
@@ -59,28 +63,27 @@ function gkm_5d_strip_prediction_I_0(t, u, max_deg::Int64)
   return t_sq_bracket_frac([], u .* [t[4], t[5]], max_deg)
 end
 
+function gkm_5d_closed_vertex_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
 
-#TODO understand the sign difference in the following example:
+  @req !iszero(beta) "beta must not be zero"
 
-# julia> G = gkm_5d_strip([-1, 1]; equiCY=true)
-# GKM graph with 2 nodes, valency 5 and axial function:
-# 2,1 -> 1,1 => (1, -1, 0, 0, 0)
-# Standalone flags:
-# 1,1.2 => (0, -1, 0, -1, -1)
-# 1,1.3 => (1, 0, 0, 0, 0)
-# 1,1.4 => (0, 0, 0, 1, 0)
-# 1,1.5 => (0, 0, 0, 0, 1)
-# 2,1.2 => (-1, 0, 0, -1, -1)
-# 2,1.3 => (0, 1, 0, 0, 0)
-# 2,1.4 => (0, 0, 0, 1, 0)
-# 2,1.5 => (0, 0, 0, 0, 1)
+  b1 = curve_class(G, "0,1", "1,1")
+  b2 = curve_class(G, "0,1", "2,1")
+  b3 = curve_class(G, "0,1", "3,1")
+  H2 = parent(b1)
+  @req (b1 == gens(H2)[1]) && (b2 == gens(H2)[2]) && (b3 == gens(H2)[3]) "Generator labeling of H2(closed vertex) changed."
 
-# julia> b = curve_class(G, Edge(1, 2))
-# (1)
-
-# julia> get_Omega_beta(G, [b], 2)
-# Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 1 entry:
-#   (1) => (7//5760*t4^4*u^4 + 1//576*t4^2*t5^2*u^4 - 1//24*t4^2*u^2 + 7//5760*t5^4*u^4 - 1//24*t5^2*u^2 + 1)//(t4*t5*u^2)
-
-# julia> CY5.gkm_5d_strip_prediction_I_0(t, u, 3)
-# (-7//5760*t4^4*u^4 + 1//576*t4^2*t5^2*u^4 - 1//24*t4^2*u^2 - 7//5760*t5^4*u^4 - 1//24*t5^2*u^2 + 1)//(t4*t5*u^2)
+  max_deg = 2*max_genus - 2
+  
+  if beta in [b1, b2, b3, b1+b2+b3]
+    return t_sq_bracket_frac([], u .* [t[4], t[5]], max_deg)
+  elseif beta == b1+b2
+    return -t_sq_bracket_frac([u * (t[3] + t[4] + t[5])], u .* [t[3], t[4], t[5]], max_deg)
+  elseif beta == b2+b3
+    return -t_sq_bracket_frac([u * (t[1] + t[4] + t[5])], u .* [t[1], t[4], t[5]], max_deg)
+  elseif beta == b1+b3
+    return -t_sq_bracket_frac([u * (t[2] + t[4] + t[5])], u .* [t[2], t[4], t[5]], max_deg)
+  else
+    return zero(u)
+  end
+end
