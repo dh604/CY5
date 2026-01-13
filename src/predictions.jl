@@ -14,6 +14,8 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
     return zero(u)
   elseif et == :closed_vertex
     return gkm_5d_closed_vertex_prediction(G, t, u, beta, max_genus)
+  elseif et == :CY5_from_CY4
+    return zero(u)
   else
     error("Example type $et is not implemented.")
   end

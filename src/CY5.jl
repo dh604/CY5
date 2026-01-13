@@ -11,6 +11,7 @@ include("closed_vertex.jl")
 include("pipeline.jl")
 include("brackets.jl")
 include("predictions.jl")
+include("CY4_vanishing.jl")
 
 export cc_mobius
 export gkm_3d_strip
@@ -23,5 +24,6 @@ export minus_one_minus_one_chain
 export X_times_Ar
 export gkm_3d_closed_vertex
 export gkm_5d_closed_vertex
+export CY5_from_CY4
 
 end

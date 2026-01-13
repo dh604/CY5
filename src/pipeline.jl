@@ -10,7 +10,7 @@ If the optional argument `check_predictions` is set to true, this will print whe
 for `G` are correct, as given by `get_Omega_prediction` in `predictions.jl`.
 
 """
-function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false) where T <: CC
+function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, known_so_far::Dict{T, Int64}=Dict{T, Int64}()) where T <: CC
   all_betas = downward_close_ccs(betas)
   res = Dict{CC, Any}()
 
@@ -52,8 +52,10 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
       if !prediction_tests[b]
         println("Prediction fails for $b:")
         println("  prediction = $p")
-        println("      actual = $(res[b])")
-        println("        type = $(get_attribute(G, :prediction_data)[b])")
+        # println("      actual = $(res[b])")
+        get_attribute(G, :example_type) == :gkm_5d_strip_from_3d_CY && println("        type = $(get_attribute(G, :prediction_data)[b])")
+      else
+        println("Prediction holds for $b")
       end
     end
     if all(b -> prediction_tests[b], keys(prediction_tests))
