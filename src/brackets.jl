@@ -12,6 +12,10 @@ function t_sq_bracket_frac(num_factors::Vector, denom_factors::Vector, max_deg::
 
   res = one(S) // 1
   max_num_deg = max_deg + length(denom_factors)
+  # println("num_factors: $(length(num_factors))")
+  # println("denom_factors: $(length(denom_factors))")
+  # println("max_deg = $max_deg")
+  # println("max_num_deg = $max_num_deg")
 
   if length(num_factors) > 0
     res *= multi_mullow([t_sq_bracket(x * f, max_num_deg) for f in num_factors], max_num_deg)
@@ -22,11 +26,13 @@ function t_sq_bracket_frac(num_factors::Vector, denom_factors::Vector, max_deg::
   end
 
   d_res = denominator(res)
-  println(typeof(res))
+  # println("degree(d_res) = $(degree(d_res))")
+  # println(typeof(res))
   n_res = numerator(res)
   # println(n_res)
   # println(d_res)
-  res = truncate(n_res, max_num_deg+1) // d_res
+  # res = truncate(n_res, max_num_deg+1) // d_res # if cancellation happens in the factors leading to the result, tihs will give too much I think.
+  res = truncate(n_res, max_deg + degree(d_res) + 1)
   # println(res)
   return evaluate(res, one(coefficient_ring(R)))
 end
