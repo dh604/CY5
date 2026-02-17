@@ -1,3 +1,15 @@
+@doc raw"""
+    CY5_from_CY4(CY4::AbstractGKM_graph; equiCY::Bool=false)
+
+Return $X\times\mathbb{C}^1$.
+
+## Arguments
+* `X`: The GKM graph of a 4-fold.
+* `equiCY`: If this optional argument with default value `false` is set to `true`, the returned space will be linearized to be equivariantly Calabi-Yau.
+
+!!! warning
+    For `equiCY=true`, this function requires `X` to be Calabi-Yau, although not necessarily equivariantly.
+"""
 function CY5_from_CY4(CY4::AbstractGKM_graph; equiCY::Bool=false)
 
   C1 = empty_gkm_graph(1, 1, ["1"])

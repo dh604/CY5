@@ -1,15 +1,17 @@
 @doc raw"""
-    gkm_3d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
+    gkm_3d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
 
-Create the GKM graph of the strip geometry described by `ups_and_downs`.
-This means that there will be `ups_and_downs[1]` flags up (if positive) or down (if negative),
-followed by `ups_and_downs[2]` flags up or down, and so on.
+Create the GKM graph of the 3d strip geometry described by `ups_and_downs` (see [main_paper; Section 4](@cite)).
+
+## Arguments
+* `ups_and_downs`: a vector of non-zero integers with the following meaning in terms of [main_paper; (4)](@cite): there will
+    be `ups_and_downs[1]` flags up (if positive) or down (if negative), followed by `ups_and_downs[2]` flags up or down,
+    and so on.
+* `equiCY`: If this optional argument with default value `false` is set to `true`, the returned space will be linearized to be equivariantly Calabi-Yau.
 
 # Weight convention:
-Flags pointing up have weight $\epsilon_2$, flags pointing down have weight $\epsilon_3$, and
+In terms of [main_paper; (4)](@cite): flags pointing up have weight $\epsilon_2$, flags pointing down have weight $\epsilon_3$, and
 the flag at vertex 1 pointing left has weight $\epsilon_1$.
-
-If the optional argument `equiCY` is set to `true`, then the weights are as in (4) of the draft.
 """
 function gkm_3d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
 
@@ -85,10 +87,17 @@ function test_strips(l::Int64)
 end
 
 @doc raw"""
-    gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
+    gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
 
-Return the product of the output of `gkm_3d_strip` with $\mathbb{C}^2$, where the trivial factor
+Return the product of the output of [`gkm_3d_strip`](@ref) with $\mathbb{C}^2$, where the latter
 has weights $\epsilon_4, \epsilon_5$.
+
+## Arguments
+* `ups_and_downs`: Same meaning as in [`gkm_3d_strip`](@ref)
+* `equiCY`: If this optional argument with default value `false` is set to `true`, the result is linearized
+    to be equivariantly Calabi-Yau. Note that the underlying 3d strip geometry is not taken to be equivariantly
+    Calabi-Yau.
+
 """
 function gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
   three_d_strip = gkm_3d_strip(ups_and_downs)
@@ -130,18 +139,19 @@ function gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtool
 end
 
 @doc raw"""
-    Ar_times_C3(r::Int64)
+    Ar_times_C3(r::Int64) -> GKMtools.AbstractGKM_graph
 
-Return $A_r\times\mathbb{C}^3$, where $r$ is the number of rational curves in the chain.
+Return $\mathcal{A}_r\times\mathbb{C}^3$, where $r$ is the number of rational curves in the chain.
+The space is equivariantly Calabi-Yau.
 """
 function Ar_times_C3(r::Int64)
   return gkm_5d_strip([-(r+1)]; equiCY = true)
 end
   
 @doc raw"""
-    Ar_times_C1(r::Int64)
+    Ar_times_C1(r::Int64) -> GKMtools.AbstractGKM_graph
 
-Return $A_r\times\mathbb{C}^1$, where $r$ is the number of rational curves in the chain.
+Return $\mathcal{A}_r\times\mathbb{C}^1$, where $r$ is the number of rational curves in the chain.
 """
 function Ar_times_C1(r::Int64)
   return gkm_3d_strip([-(r+1)])
@@ -149,9 +159,11 @@ end
 
 
 @doc raw"""
-    Ar_times_C3(r::Int64)
+    minus_one_minus_one_chain(r::Int64) -> GKMtools.AbstractGKM_graph
 
 Return a chain of $\mathcal{O}(-1)\oplus\mathcal{O}(-1)$ bundles of length $r$, product with $\mathbb{C}^2$.
+The result is equivariantly Calabi-Yau and coincides with the output of
+[`gkm_5d_strip`](@ref) with `ups_and_downs = [-1, 1, -1, ...]`.
 """
 function minus_one_minus_one_chain(r::Int64)
   uad = ones(Int64, r+1)
@@ -173,11 +185,18 @@ function gkm_Ar(r::Int64)
 end
 
 
-"""
-    X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
+@doc raw"""
+    X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
+
+Return $X\times\mathcal{A}_r$.
+
+## Arguments
+* `X`: The GKM graph of a 3-fold.
+* `r`: The number of $T$-stable rational curves in $\mathcal{A}_r$.
+* `equiCY`: If this optional argument with default value `false` is set to `true`, the returned space will be linearized to be equivariantly Calabi-Yau.
 
 !!! warning
-    For `equiCY=true`, this requires `X` to be CY already.
+    For `equiCY=true`, this function requires `X` to be Calabi-Yau, although not necessarily equivariantly.
 """
 function X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
   G = X * gkm_Ar(r)
@@ -199,8 +218,3 @@ function X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
   set_attribute!(G, :example_type, :X_times_Ar)
   return G
 end
-
-# # TODO: implement
-# function gkm_p1_chain()
-
-# end

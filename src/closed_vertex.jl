@@ -1,3 +1,9 @@
+@doc raw"""
+    gkm_3d_closed_vertex() -> GKMtools.AbstractGKM_graph
+
+Return the GKM graph of the 3d closed vertex geometry.
+The weights are defined to agree with the first figure in [main_paper; Section 7.1](@cite).
+"""
 function gkm_3d_closed_vertex()
 
   ray_gens = [[1, 0, 0], [1, 1, 0], [1, 0, 1], [1, 1, 1], [1, 2, 0], [1, 0, 2]]
@@ -18,6 +24,17 @@ function gkm_3d_closed_vertex()
   return G
 end
 
+@doc raw"""
+    gkm_5d_closed_vertex(; equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
+
+Return the product of the output of [`gkm_3d_closed_vertex`](@ref) with $\mathbb{C}^2$, where the latter
+has weights $\epsilon_4, \epsilon_5$.
+
+## Arguments
+* `equiCY`: If this optional argument with default value `false` is set to `true`, the result is linearized
+    to be equivariantly Calabi-Yau. Note that the underlying 3d closed vertex geometry is not taken to be
+    equivariantly Calabi-Yau.
+"""
 function gkm_5d_closed_vertex(;equiCY::Bool=false)
 
   CV3 = gkm_3d_closed_vertex()

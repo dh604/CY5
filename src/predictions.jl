@@ -1,10 +1,30 @@
 
 @doc raw"""
-    get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+    get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta, max_genus::Int64, res)
 
-Return the conjectural prediction of $\Omega_\beta$, using the attribute `:example_type` of `G`.
+Return the conjectural prediction of $\Omega_\beta$ for the space with GKM graph `G`.
+
+## Arguments
+* `G`: the GKM graph of the space $X$ whose $\Omega_\beta$ we care about.
+* `t`: the vector of equivariant parameters.
+* `u`: the formal variable $u$ that keeps track of the genus.
+* `beta`: the curve class $\beta$ for which the conjectural value of $\Omega_\beta$ should be returned.
+* `max_genus`: the maximum genus up to which the conjectural value of $\Omega_\beta$ should be returned.
+      That is, the highest exponent of $u$ in the returned value is `2*max_genus - 1`.
+
+!!! warning
+    The field `res` is needed as the prediction is phrased in terms of the calculated genus zero invariants
+    for some cases. This will be removed in future.
+
+!!! note
+    This function requires the attribute `:example_type` of `G` to be set.
+    This holds automatically whenever `G` is obtained from one of the constructors in the list
+    of [implemented spaces](spaces.md).
+
+## Example
+TODO
 """
-function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res)
   @req has_attribute(G, :example_type) "G has no prediction for Omega."
   et = get_attribute(G, :example_type)
 
@@ -16,6 +36,8 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
     return gkm_5d_closed_vertex_prediction(G, t, u, beta, max_genus)
   elseif et == :CY5_from_CY4
     return zero(u)
+  elseif et == :P1_chain_5d
+    return gkm_5d_free_strip_prediction(G, t, u, beta, max_genus, res)
   else
     error("Example type $et is not implemented.")
   end
@@ -88,4 +110,49 @@ function gkm_5d_closed_vertex_prediction(G::AbstractGKM_graph, t::Vector, u, bet
   else
     return zero(u)
   end
+end
+
+# TODO: There could be cancellations un the weights of the normal bundle, e.g.
+# 2e1 * e2 // e1 ** 2e2
+# that don't carry over to cancel on the level of sinch.
+# Thus, we really need a sinch factor for each weight of the normal bundle.
+# Reimplement it that way.
+function gkm_5d_free_strip_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res)
+
+  @req !iszero(beta) "beta must not be zero"
+
+  max_deg = 2*max_genus - 2
+  
+  # only nonzero exponents should be one
+  b2 = rank(parent(beta))
+  any(i -> beta[i] > 1, 1:b2) && return zero(u)
+
+  
+  # nonzero exponents should be adjacent
+  first_nonzero = findfirst(i -> !iszero(beta[i]), 1:b2)
+  last_nonzero = findlast(i -> !iszero(beta[i]), 1:b2)
+  any(i -> iszero(beta[i]), first_nonzero+1:last_nonzero-1) && return zero(u)
+
+  # factor the genus zero part
+  g0 = evaluate(u^2 * res, vcat(t, [zero(u)]))
+  # println("g0=$g0")
+  num_fac = factor(numerator(g0))
+  denom_fac = factor(denominator(g0))
+
+  nfs = Vector{}()
+  dfs = Vector{}()
+
+  for (nf, e) in num_fac
+    append!(nfs, repeat([u*nf], e))
+  end
+  for (df, e) in denom_fac
+    append!(dfs, repeat([u*df], e))
+  end
+  
+  # println("nfs = $nfs")
+  # println("dfs = $dfs")
+  # println("max_deg = $max_deg")
+
+  return one(u) * unit(num_fac) * unit(denom_fac) * t_sq_bracket_frac(nfs, dfs, max_deg)
+
 end

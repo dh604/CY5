@@ -1,16 +1,23 @@
 
 @doc raw"""
-    get_Omega_beta(G::AbstractGKM_graph, betas::Vector{CC})::Dict{CC, Any}
+    get_Omega_beta(G::AbstractGKM_graph, betas::Vector, gMax::Int64; check_predictions::Bool=false)
 
-Return `d`, where `d` is a dictionary assigning to each curve class $\beta$ in `betas` the invariant
-$\Omega_b$ as function in the equivariant parameters `t` and the genus parameter `u`,
-which is the last generator.
+Return a dictionary assigning to each curve class $\beta$ in `betas` the invariant
+$\Omega_b$ as rational function in the equivariant parameters and the genus parameter $u$.
 
-If the optional argument `check_predictions` is set to true, this will print whether the predictions
-for `G` are correct, as given by `get_Omega_prediction` in `predictions.jl`.
+## Arguments
+* `G`: the GKM graph of the space $X$ whose $\Omega_\beta$ should be computed.
+* `betas`: the vector of curve classes on $X$ for which $\Omega_\beta$ should be computed.
+* `gMax`: the maximum genus up to which each $\Omega_\beta$ will be approximated. That is,
+          the highest order term will be $u^{2\text{gMax}-2}$.
+* `check_predictions`: this optional argument with default value `false` controls whether the computed values of
+          $\Omega_\beta$ are compared to the conjectured values. If `check_predictions=true`, the conjectured values
+          are retrieved from [`get_Omega_prediction`](@ref).
 
+## Example
+TODO
 """
-function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, known_so_far::Dict{T, Int64}=Dict{T, Int64}()) where T <: CC
+function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false) where T <: CC
   all_betas = downward_close_ccs(betas)
   res = Dict{CC, Any}()
 
@@ -42,7 +49,7 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
     end
     
     for b in keys(res)
-      p = get_Omega_prediction(G, t, u, b, gMax)
+      p = get_Omega_prediction(G, t, u, b, gMax, res[b])
 
       if has_CY_substitution
         p = evaluate(p, CY_subst)
