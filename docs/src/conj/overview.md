@@ -6,4 +6,4 @@ In this section, we present for each conjecture of [main_paper](@cite) the list 
     TODO: create table listing for each conjecture the verified examples, curve classes, and maximum genus tested.
 
 !!! note
-    TODO: include `P3_m2_m2.jl` and `free_P1_chain.jl` when they are ready.
+    TODO: include `P3_m2_m2.jl`, `mixed_3d_strip.jl` and `free_P1_chain.jl` when they are ready.
