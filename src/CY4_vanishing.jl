@@ -9,6 +9,55 @@ Return $X\times\mathbb{C}^1$.
 
 !!! warning
     For `equiCY=true`, this function requires `X` to be Calabi-Yau, although not necessarily equivariantly.
+
+# Example
+Let us consider the example with $X=\text{Tot}(\mathcal{O}_{\mathbb{P}^2}(-1)\oplus \mathcal{O}_{\mathbb{P}^2}(-2))$.
+```jldoctest
+julia> X = total_space(vector_bundle_O(2, [-1, -2]))
+GKM graph with 3 nodes, valency 4 and axial function:
+2 -> 1 => (-1, 1, 0, 0, 0)
+3 -> 1 => (-1, 0, 1, 0, 0)
+3 -> 2 => (0, -1, 1, 0, 0)
+Standalone flags:
+1.3 => (0, 0, 0, 1, 0)
+1.4 => (0, 0, 0, 0, 1)
+2.3 => (1, -1, 0, 1, 0)
+2.4 => (2, -2, 0, 0, 1)
+3.3 => (1, 0, -1, 1, 0)
+3.4 => (2, 0, -2, 0, 1)
+
+julia> CY5_from_CY4(X)
+GKM graph with 3 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (-1, 1, 0, 0, 0, 0)
+3,1 -> 1,1 => (-1, 0, 1, 0, 0, 0)
+3,1 -> 2,1 => (0, -1, 1, 0, 0, 0)
+Standalone flags:
+1,1.3 => (0, 0, 0, 1, 0, 0)
+1,1.4 => (0, 0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 0, 1)
+2,1.3 => (1, -1, 0, 1, 0, 0)
+2,1.4 => (2, -2, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 0, 1)
+3,1.3 => (1, 0, -1, 1, 0, 0)
+3,1.4 => (2, 0, -2, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 0, 1)
+
+julia> CY5_from_CY4(X; equiCY=true) # Let us also see the equivariantly CY substitution.
+GKM graph with 3 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (-1, 1, 0, 0, 0, 0)
+3,1 -> 1,1 => (-1, 0, 1, 0, 0, 0)
+3,1 -> 2,1 => (0, -1, 1, 0, 0, 0)
+Standalone flags:
+1,1.3 => (0, 0, 0, 1, 0, 0)
+1,1.4 => (0, 0, 0, 0, 1, 0)
+1,1.5 => (-2, 1, 1, -1, -1, 0)
+2,1.3 => (1, -1, 0, 1, 0, 0)
+2,1.4 => (2, -2, 0, 0, 1, 0)
+2,1.5 => (-2, 1, 1, -1, -1, 0)
+3,1.3 => (1, 0, -1, 1, 0, 0)
+3,1.4 => (2, 0, -2, 0, 1, 0)
+3,1.5 => (-2, 1, 1, -1, -1, 0)
+```
 """
 function CY5_from_CY4(CY4::AbstractGKM_graph; equiCY::Bool=false)
 

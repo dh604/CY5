@@ -1,6 +1,6 @@
 # Example
 
-On this page, we present a detailed example illustrating the [Pipeline](@ref pipeline.md).
+On this page, we present a detailed example illustrating the [Pipeline](pipeline.md).
 
 !!! note
     TODO

@@ -3,6 +3,22 @@
 
 Return the GKM graph of the 3d closed vertex geometry.
 The weights are defined to agree with the first figure in [main_paper; Section 7.1](@cite).
+
+# Example
+```jldoctest
+julia> gkm_3d_closed_vertex()
+GKM graph with 4 nodes, valency 3 and axial function:
+0 -> 1 => (-1//2, 1//2, 1//2)
+2 -> 0 => (-1//2, 1//2, -1//2)
+3 -> 0 => (-1//2, -1//2, 1//2)
+Standalone flags:
+1.2 => (0, 1, 0)
+1.3 => (0, 0, 1)
+2.2 => (1, 0, 0)
+2.3 => (0, 0, 1)
+3.2 => (1, 0, 0)
+3.3 => (0, 1, 0)
+```
 """
 function gkm_3d_closed_vertex()
 
@@ -34,6 +50,53 @@ has weights $\epsilon_4, \epsilon_5$.
 * `equiCY`: If this optional argument with default value `false` is set to `true`, the result is linearized
     to be equivariantly Calabi-Yau. Note that the underlying 3d closed vertex geometry is not taken to be
     equivariantly Calabi-Yau.
+
+# Example
+Let us see the output of this function once with `equiCY=false` (default) and once with `equiCY=true`.
+```jldoctest
+julia> gkm_5d_closed_vertex()
+GKM graph with 4 nodes, valency 5 and axial function:
+0,1 -> 1,1 => (-1//2, 1//2, 1//2, 0, 0)
+2,1 -> 0,1 => (-1//2, 1//2, -1//2, 0, 0)
+3,1 -> 0,1 => (-1//2, -1//2, 1//2, 0, 0)
+Standalone flags:
+1,1.2 => (0, 1, 0, 0, 0)
+1,1.3 => (0, 0, 1, 0, 0)
+1,1.4 => (0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 1)
+0,1.4 => (0, 0, 0, 1, 0)
+0,1.5 => (0, 0, 0, 0, 1)
+2,1.2 => (1, 0, 0, 0, 0)
+2,1.3 => (0, 0, 1, 0, 0)
+2,1.4 => (0, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 1)
+3,1.2 => (1, 0, 0, 0, 0)
+3,1.3 => (0, 1, 0, 0, 0)
+3,1.4 => (0, 0, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 1)
+
+julia> gkm_5d_closed_vertex(equiCY=true)
+GKM graph with 4 nodes, valency 5 and axial function:
+0,1 -> 1,1 => (-1, 0, 0, -1, -1)
+2,1 -> 0,1 => (0, 1, 0, 1, 1)
+3,1 -> 0,1 => (-1, -1, 0, -1, -1)
+Standalone flags:
+1,1.2 => (0, 1, 0, 0, 0)
+1,1.3 => (-1, -1, 0, -2, -2)
+1,1.4 => (0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 1)
+0,1.4 => (0, 0, 0, 1, 0)
+0,1.5 => (0, 0, 0, 0, 1)
+2,1.2 => (1, 0, 0, 0, 0)
+2,1.3 => (-1, -1, 0, -2, -2)
+2,1.4 => (0, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 1)
+3,1.2 => (1, 0, 0, 0, 0)
+3,1.3 => (0, 1, 0, 0, 0)
+3,1.4 => (0, 0, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 1)
+
+```
 """
 function gkm_5d_closed_vertex(;equiCY::Bool=false)
 

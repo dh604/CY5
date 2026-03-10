@@ -12,6 +12,33 @@ Create the GKM graph of the 3d strip geometry described by `ups_and_downs` (see 
 # Weight convention:
 In terms of [main_paper; (4)](@cite): flags pointing up have weight $\epsilon_2$, flags pointing down have weight $\epsilon_3$, and
 the flag at vertex 1 pointing left has weight $\epsilon_1$.
+
+# Example
+Let us see the same example once with `equiCY=false` (default) and once with `equiCY=true`.
+
+```jldoctest
+julia> G = gkm_3d_strip([1, -1, 1]) # equiCY=false
+GKM graph with 3 nodes, valency 3 and axial function:
+2 -> 1 => (1, 0, -1)
+3 -> 2 => (1, -1, -1)
+Standalone flags:
+1.2 => (0, 1, 0)
+1.3 => (1, 0, 0)
+2.3 => (0, 0, 1)
+3.2 => (-1, 1, 2)
+3.3 => (0, 1, 0)
+
+julia> G = gkm_3d_strip([1, -1, 1]; equiCY=true)
+GKM graph with 3 nodes, valency 3 and axial function:
+2 -> 1 => (-1, 1)
+3 -> 2 => (-1, 0)
+Standalone flags:
+1.2 => (0, 1)
+1.3 => (-1, 0)
+2.3 => (0, -1)
+3.2 => (1, -1)
+3.3 => (0, 1)
+```
 """
 function gkm_3d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
 
@@ -98,6 +125,26 @@ has weights $\epsilon_4, \epsilon_5$.
     to be equivariantly Calabi-Yau. Note that the underlying 3d strip geometry is not taken to be equivariantly
     Calabi-Yau.
 
+# Example
+Let us produce the example of [`gmk_3d_strip`] times $\mathbb{C}^2$.
+```jldoctest
+julia> G = gkm_5d_strip([1, -1, 1])
+GKM graph with 3 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (1, 0, -1, 0, 0)
+3,1 -> 2,1 => (1, -1, -1, 0, 0)
+Standalone flags:
+1,1.2 => (0, 1, 0, 0, 0)
+1,1.3 => (1, 0, 0, 0, 0)
+1,1.4 => (0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 1)
+2,1.3 => (0, 0, 1, 0, 0)
+2,1.4 => (0, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 1)
+3,1.2 => (-1, 1, 2, 0, 0)
+3,1.3 => (0, 1, 0, 0, 0)
+3,1.4 => (0, 0, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 1)
+```
 """
 function gkm_5d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false)::GKMtools.AbstractGKM_graph
   three_d_strip = gkm_3d_strip(ups_and_downs)
@@ -143,6 +190,26 @@ end
 
 Return $\mathcal{A}_r\times\mathbb{C}^3$, where $r$ is the number of rational curves in the chain.
 The space is equivariantly Calabi-Yau.
+
+# Example
+```jldoctest
+julia> G = Ar_times_C3(2)
+GKM graph with 3 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (1, -1, 0, 0, 0)
+3,1 -> 2,1 => (1, -2, 0, 0, 0)
+Standalone flags:
+1,1.2 => (0, -1, 0, -1, -1)
+1,1.3 => (1, 0, 0, 0, 0)
+1,1.4 => (0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 1)
+2,1.3 => (0, -1, 0, -1, -1)
+2,1.4 => (0, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 1)
+3,1.2 => (0, -1, 0, -1, -1)
+3,1.3 => (-1, 3, 0, 0, 0)
+3,1.4 => (0, 0, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 1)
+```
 """
 function Ar_times_C3(r::Int64)
   return gkm_5d_strip([-(r+1)]; equiCY = true)
@@ -152,6 +219,20 @@ end
     Ar_times_C1(r::Int64) -> GKMtools.AbstractGKM_graph
 
 Return $\mathcal{A}_r\times\mathbb{C}^1$, where $r$ is the number of rational curves in the chain.
+
+# Example
+```jldoctest
+julia> G = Ar_times_C1(2)
+GKM graph with 3 nodes, valency 3 and axial function:
+2 -> 1 => (1, -1, 0)
+3 -> 2 => (1, -2, 0)
+Standalone flags:
+1.2 => (0, 0, 1)
+1.3 => (1, 0, 0)
+2.3 => (0, 0, 1)
+3.2 => (0, 0, 1)
+3.3 => (-1, 3, 0)
+```
 """
 function Ar_times_C1(r::Int64)
   return gkm_3d_strip([-(r+1)])
@@ -164,6 +245,27 @@ end
 Return a chain of $\mathcal{O}(-1)\oplus\mathcal{O}(-1)$ bundles of length $r$, product with $\mathbb{C}^2$.
 The result is equivariantly Calabi-Yau and coincides with the output of
 [`gkm_5d_strip`](@ref) with `ups_and_downs = [-1, 1, -1, ...]`.
+
+# Example
+Let us produce the chain of length 2.
+```jldoctest
+julia> G = minus_one_minus_one_chain(2)
+GKM graph with 3 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (1, -1, 0, 0, 0)
+3,1 -> 2,1 => (1, 0, 0, 1, 1)
+Standalone flags:
+1,1.2 => (0, -1, 0, -1, -1)
+1,1.3 => (1, 0, 0, 0, 0)
+1,1.4 => (0, 0, 0, 1, 0)
+1,1.5 => (0, 0, 0, 0, 1)
+2,1.3 => (0, 1, 0, 0, 0)
+2,1.4 => (0, 0, 0, 1, 0)
+2,1.5 => (0, 0, 0, 0, 1)
+3,1.2 => (-1, 1, 0, -1, -1)
+3,1.3 => (0, -1, 0, -1, -1)
+3,1.4 => (0, 0, 0, 1, 0)
+3,1.5 => (0, 0, 0, 0, 1)
+```
 """
 function minus_one_minus_one_chain(r::Int64)
   uad = ones(Int64, r+1)
@@ -197,6 +299,69 @@ Return $X\times\mathcal{A}_r$.
 
 !!! warning
     For `equiCY=true`, this function requires `X` to be Calabi-Yau, although not necessarily equivariantly.
+
+# Example
+Let us produce the example $\mathcal{A}_2\times\mathbb{C}\times\mathcal{A}_3$.
+
+```jldoctest
+julia> A2_times_C = Ar_times_C1(2)
+GKM graph with 3 nodes, valency 3 and axial function:
+2 -> 1 => (1, -1, 0)
+3 -> 2 => (1, -2, 0)
+Standalone flags:
+1.2 => (0, 0, 1)
+1.3 => (1, 0, 0)
+2.3 => (0, 0, 1)
+3.2 => (0, 0, 1)
+3.3 => (-1, 3, 0)
+
+julia> A2_times_A3 = X_times_Ar(A2_times_C, 3)
+GKM graph with 12 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (1, -1, 0, 0, 0)
+3,1 -> 2,1 => (1, -2, 0, 0, 0)
+1,2 -> 1,1 => (0, 0, 0, 1, -1)
+2,2 -> 2,1 => (0, 0, 0, 1, -1)
+2,2 -> 1,2 => (1, -1, 0, 0, 0)
+3,2 -> 3,1 => (0, 0, 0, 1, -1)
+3,2 -> 2,2 => (1, -2, 0, 0, 0)
+1,3 -> 1,2 => (0, 0, 0, 1, -2)
+2,3 -> 2,2 => (0, 0, 0, 1, -2)
+2,3 -> 1,3 => (1, -1, 0, 0, 0)
+3,3 -> 3,2 => (0, 0, 0, 1, -2)
+3,3 -> 2,3 => (1, -2, 0, 0, 0)
+1,4 -> 1,3 => (0, 0, 0, 1, -3)
+2,4 -> 2,3 => (0, 0, 0, 1, -3)
+2,4 -> 1,4 => (1, -1, 0, 0, 0)
+3,4 -> 3,3 => (0, 0, 0, 1, -3)
+3,4 -> 2,4 => (1, -2, 0, 0, 0)
+Standalone flags:
+1,1.2 => (0, 0, 1, 0, 0)
+1,1.3 => (1, 0, 0, 0, 0)
+1,1.5 => (0, 0, 0, 1, 0)
+2,1.3 => (0, 0, 1, 0, 0)
+2,1.5 => (0, 0, 0, 1, 0)
+3,1.2 => (0, 0, 1, 0, 0)
+3,1.3 => (-1, 3, 0, 0, 0)
+3,1.5 => (0, 0, 0, 1, 0)
+1,2.2 => (0, 0, 1, 0, 0)
+1,2.3 => (1, 0, 0, 0, 0)
+2,2.3 => (0, 0, 1, 0, 0)
+3,2.2 => (0, 0, 1, 0, 0)
+3,2.3 => (-1, 3, 0, 0, 0)
+1,3.2 => (0, 0, 1, 0, 0)
+1,3.3 => (1, 0, 0, 0, 0)
+2,3.3 => (0, 0, 1, 0, 0)
+3,3.2 => (0, 0, 1, 0, 0)
+3,3.3 => (-1, 3, 0, 0, 0)
+1,4.2 => (0, 0, 1, 0, 0)
+1,4.3 => (1, 0, 0, 0, 0)
+1,4.5 => (0, 0, 0, -1, 4)
+2,4.3 => (0, 0, 1, 0, 0)
+2,4.5 => (0, 0, 0, -1, 4)
+3,4.2 => (0, 0, 1, 0, 0)
+3,4.3 => (-1, 3, 0, 0, 0)
+3,4.5 => (0, 0, 0, -1, 4)
+```
 """
 function X_times_Ar(X::AbstractGKM_graph, r::Int64; equiCY::Bool=false)
   G = X * gkm_Ar(r)

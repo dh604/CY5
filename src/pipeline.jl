@@ -13,11 +13,60 @@ $\Omega_b$ as rational function in the equivariant parameters and the genus para
 * `check_predictions`: this optional argument with default value `false` controls whether the computed values of
           $\Omega_\beta$ are compared to the conjectured values. If `check_predictions=true`, the conjectured values
           are retrieved from [`get_Omega_prediction`](@ref).
+* `show_bar`: this optional argument can be set to `false` to disable the progress bar of the Gromov-Witten localization computation.
 
 ## Example
-TODO
+Let us compute the genus zero and genus one terms of
+$\Omega_\beta$ for the example $Z=\mathcal{A}_2\times \mathbb{C}^2$ (see [Spaces](spaces.md)).
+
+
+```jldoctest pipeline_example
+julia> G = Ar_times_C3(2);
+
+julia> b = curve_class(G, Edge(1, 2))
+(1, 0)
+
+julia> c = curve_class(G, Edge(2, 3))
+(0, 1)
+
+julia> max_genus = 1;
+
+julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false)
+Calculating b=(3, 0), g=1
+Calculating b=(1, 0), g=1
+Calculating b=(4, 0), g=1
+Calculating b=(2, 0), g=1
+Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
+  (4, 0) => 0
+  (2, 0) => 0
+  (3, 0) => 0
+  (1, 0) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+```
+The equivariant parameters $\epsilon_1,\epsilon_2,\dots$ are displayed as `t1`, `t2`, etc.
+
+Setting `check_predictios=true`, we can automatically check if $\Omega_\beta$ matches the output of
+[`get_Omega_prediction`](@ref):
+
+```jldoctest pipeline_example
+julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false, check_predictions=true)
+Calculating b=(3, 0), g=1
+Calculating b=(1, 0), g=1
+Calculating b=(4, 0), g=1
+Calculating b=(2, 0), g=1
+Prediction holds for (4, 0)
+Prediction holds for (2, 0)
+Prediction holds for (3, 0)
+Prediction holds for (1, 0)
+All predictions hold.
+Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
+  (4, 0) => 0
+  (2, 0) => 0
+  (3, 0) => 0
+  (1, 0) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+
+```
 """
-function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false) where T <: CC
+function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, show_bar::Bool=true) where T <: CC
   all_betas = downward_close_ccs(betas)
   res = Dict{CC, Any}()
 
@@ -26,11 +75,11 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
   u = u[1]
 
   for b in all_betas
-    gw0 = gromov_witten(G, b, 0, class_one(); g=0) // 1
+    gw0 = gromov_witten(G, b, 0, class_one(); g=0, show_bar=show_bar) // 1
     tmp = evaluate(gw0, t)//(u^2)
     for g in 1:gMax
       println("Calculating b=$b, g=$g")
-      gw = gromov_witten(G, b, 0, class_one(); g=g) // 1
+      gw = gromov_witten(G, b, 0, class_one(); g=g, show_bar=show_bar) // 1
       tmp += evaluate(gw, t) * u^(2*g - 2)
     end
     res[b] = tmp

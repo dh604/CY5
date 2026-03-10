@@ -1,7 +1,8 @@
-# Conjecture 7.2
+# Section 7.2
 
 !!! note
-    TODO: write down conjecture for $\mathcal{O}_{\mathbb{P}^1}(-1)^{\oplus 3}$ as Conjecture 7.2? Then redesign this page.
+    This file concerns $\mathcal{O}_{\mathbb{P}^2}(-1)^{\oplus 3}$ in Section 7.2.
+    TODO: clarify structure.
 
 ## Verified cases
 

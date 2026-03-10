@@ -15,6 +15,29 @@ Return a 5d chain of $\mathbb{P}^1$s, where the degrees of the linear summands o
 !!! note
     The first step must have `2` in the last position.
     This ensures that the standalone flags at vertex `1` have weights $\epsilon_1,\dots,\epsilon_4$.
+
+# Example
+Here is an example which does not come from a 3d strip geometry, even though it is of the shape
+$X\times\mathbb{C}^2$ for some 3-fold $X$.
+
+```jldoctest
+julia> G = gkm_5d_p1_chain([[0, 0, -2, 0, 2], [0, 0, -2, 2, 0]]; equiCY=true)
+GKM graph with 3 nodes, valency 5 and axial function:
+2 -> 1 => (1, 1, 1, 1, 0)
+3 -> 2 => (0, 0, 0, -1, 0)
+Standalone flags:
+1.1 => (1, 0, 0, 0, 0)
+1.2 => (0, 1, 0, 0, 0)
+1.3 => (0, 0, 1, 0, 0)
+1.4 => (0, 0, 0, 1, 0)
+2.1 => (1, 0, 0, 0, 0)
+2.2 => (0, 1, 0, 0, 0)
+2.3 => (-2, -2, -1, -2, 0)
+3.1 => (1, 0, 0, 0, 0)
+3.2 => (0, 1, 0, 0, 0)
+3.3 => (-2, -2, -1, 0, 0)
+3.5 => (1, 1, 1, 1, 0)
+```
 """
 function gkm_5d_p1_chain(steps::Vector{Vector{Int64}}; equiCY::Bool=false)
   @req all(step -> sort(step) in [[-2, 0, 0, 0, 2], [-1, -1, 0, 0, 2]], steps) "Step must be permutation of [2, -2, 0, 0, 0] or [-1, -1, 2, 0, 0]"

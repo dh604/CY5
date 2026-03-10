@@ -52,3 +52,13 @@ We set $r=3$.
 using Markdown
 Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "minus_1_minus_1_chain.jl"), String) * "\n```")
 ```
+
+#### A mixed example
+
+!!! note
+    TODO: fill in this example.
+
+```@eval
+using Markdown
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "mixed_3d_strip.jl"), String) * "\n```")
+```

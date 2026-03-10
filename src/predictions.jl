@@ -22,7 +22,55 @@ Return the conjectural prediction of $\Omega_\beta$ for the space with GKM graph
     of [implemented spaces](spaces.md).
 
 ## Example
-TODO
+Let us get the predicted $\Omega_\beta$ for $Z=\mathcal{A}_2\times \mathbb{C}^2$, continuing the example
+$Z=\mathcal{A}_2\times \mathbb{C}^2$ from [`get_Omega_beta`](@ref).
+
+```jldoctest pipeline_example_2
+julia> G = Ar_times_C3(2);
+
+julia> b = curve_class(G, Edge(1, 2));
+
+julia> c = curve_class(G, Edge(2, 3));
+
+julia> max_genus = 1;
+
+julia> R, (t1, t2, t3, t4, t5, u) = polynomial_ring(QQ, ["t1", "t2", "t3", "t4", "t5", "u"])
+(Multivariate polynomial ring in 6 variables over QQ, QQMPolyRingElem[t1, t2, t3, t4, t5, u])
+
+julia> prediction = get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, b, max_genus, nothing)
+(-1//12*t3^2*t4*u^2 - 1//12*t3^2*t5*u^2 - 1//12*t3*t4^2*u^2 - 1//4*t3*t4*t5*u^2 - 1//12*t3*t5^2*u^2 - t3 - 1//12*t4^2*t5*u^2 - 1//12*t4*t5^2*u^2 - t4 - t5)//(t3*t4*t5*u^2)
+```
+
+This does not yet match the result of [`get_Omega_beta`](@ref) above, because we still need
+to make the equivariantly Calabi-Yau substitution.
+The appropriate substitution is stored in `G`:
+
+```jldoctest pipeline_example_2
+julia> substitution = get_attribute(G, :equiCY_substitution)
+5-element Vector{QQMPolyRingElem}:
+ t1
+ t2
+ -t2 - t4 - t5
+ t4
+ t5
+
+julia> # Translate the substitution vector to our own variables.
+        substitution = [evaluate(t, [t1, t2, t3, t4, t5]) for t in substitution]
+5-element Vector{QQMPolyRingElem}:
+ t1
+ t2
+ -t2 - t4 - t5
+ t4
+ t5
+
+julia> evaluate(prediction, vcat(substitution, [u]))
+(1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+```
+This matches the result of the example in [`get_Omega_beta`](@ref), as required.
+
+The above is an illustration of how the pipeline works.
+When [`get_Omega_beta`](@ref) is used with `check_predictions=true`, it uses the same mechanism
+to determine if the actual $\Omega_\beta$ matches the conjectured one.
 """
 function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res)
   @req has_attribute(G, :example_type) "G has no prediction for Omega."
