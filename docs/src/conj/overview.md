@@ -12,7 +12,7 @@ Currently, all cases are checked for some small curve classes in genus $g\le 2$.
 | ----------- | ----------- | --- |
 | [Conjecture 4.2](@ref) | $X\times\mathbb{C}^2$ where $X$ is a 3d strip geometry  | [`gkm_5d_strip`](@ref) |
 | [Section 4.3](@ref) | $X\times\mathbb{C}^2$ where $X$ is not a 3d strip geometry  | [`gkm_5d_p1_chain`](@ref) |
-| [Conjecture 5.1](@ref) | $X_{N,m}\times\mathbb{C}^2$ (GW-gauge correspondence)  | _TODO_|
+| [Conjecture 5.1](@ref) | $X_{N,m}\times\mathbb{C}^2$ (GW-gauge correspondence)  | [`gkm_5d_gauge`](@ref) |
 | [Conjecture 6.1](@ref) | $X\times\mathcal{A}_r$ where $X$ is a CY 3-fold  | [`X_times_Ar`](@ref) |
 | [Conjecture 7.1](@ref) | $X\times\mathbb{C}^2$ where $X$ is the closed vertex  | [`gkm_5d_closed_vertex`](@ref) |
 | [Section 7.2](@ref) | $\text{Tot}(\mathcal{O}_{\mathbb{P}^2}(-1)^{\oplus 3})$  | [GKMtools.jl](@cite HM25_GKMtools) |

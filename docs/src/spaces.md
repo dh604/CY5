@@ -28,6 +28,12 @@ gkm_3d_closed_vertex
 gkm_5d_closed_vertex
 ```
 
+## GW-Gauge correspondence
+```@docs
+gkm_3d_gauge
+gkm_5d_gauge
+```
+
 ## From 3-folds
 ```@docs
 X_times_Ar

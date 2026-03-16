@@ -13,6 +13,7 @@ include("brackets.jl")
 include("predictions.jl")
 include("CY4_vanishing.jl")
 include("P1_chain_5d.jl")
+include("gauge.jl")
 
 export cc_mobius
 export gkm_3d_strip
@@ -28,5 +29,7 @@ export gkm_5d_closed_vertex
 export CY5_from_CY4
 export gkm_5d_p1_chain
 export get_Omega_prediction
+export gkm_3d_gauge
+export gkm_5d_gauge
 
 end

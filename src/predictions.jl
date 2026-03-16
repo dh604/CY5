@@ -86,6 +86,8 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
     return zero(u)
   elseif et == :P1_chain_5d
     return gkm_5d_free_strip_prediction(G, t, u, beta, max_genus, res)
+  elseif et == :gauge
+    error("Example type :gauge still needs to be implented.")
   else
     error("Example type $et is not implemented.")
   end
