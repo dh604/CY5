@@ -3,7 +3,8 @@
 The files `Omega_P3_22_num.dat` and `Omega_P3_22_den.dat` contain the numerator
 and denominator of the membrane index $\Omega_{d[L]}$ of
 ```math
-Z = \mathrm{Tot}_{\mathbb{P}^3}\mathcal{O}(-2)^2 $$
+Z = \mathrm{Tot}_{\mathbb{P}^3}\mathcal{O}(-2)^2
+```
 in degree $1 \leq d\leq 3$ respectively. Here, the $d$th line of the files contains
 the numerator resp. denominator of $\Omega_{d[L]}$ which is a Laurent polynomial
 in the characters `q0,q1,q2,q3,q4` of a certain torus $T=(\mathbb{C}^{\times})^5$
