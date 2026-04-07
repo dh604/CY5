@@ -86,6 +86,14 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
     return zero(u)
   elseif et == :P1_chain_5d
     return gkm_5d_free_strip_prediction(G, t, u, beta, max_genus, res)
+  elseif et == :P2_111
+    return gkm_5d_P2_111_prediction(G, t, u, beta, max_genus)
+  elseif et == :P3_04
+    return gkm_5d_P3_04_prediction(G, t, u, beta, max_genus)
+  elseif et == :P3_13
+    return gkm_5d_P3_13_prediction(G, t, u, beta, max_genus)
+  elseif et == :P3_22
+    return gkm_5d_P3_22_prediction(G, t, u, beta, max_genus)
   elseif et == :gauge
     error("Example type :gauge still needs to be implented.")
   else
@@ -161,6 +169,30 @@ function gkm_5d_closed_vertex_prediction(G::AbstractGKM_graph, t::Vector, u, bet
     return zero(u)
   end
 end
+
+function gkm_5d_P2_111_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+  d = beta[1]
+  return omega_series("P2_111", [d], t, u, 2*max_genus - 2)[d]
+end
+
+function gkm_5d_P3_04_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+  d = beta[1]
+  return omega_series("P3_04", [d], t, u, 2*max_genus - 2)[d]
+end
+
+function gkm_5d_P3_13_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+  d = beta[1]
+  return omega_series("P3_13", [d], t, u, 2*max_genus - 2)[d]
+end
+
+function gkm_5d_P3_22_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+  d = beta[1]
+  return omega_series("P3_22", [d], t, u, 2*max_genus - 2)[d]
+end
+
+#
+# UPDATE: gkm_5d_free_strip_prediction below is not required anymore as the generalized conjecture fails.
+#
 
 # TODO: There could be cancellations un the weights of the normal bundle, e.g.
 # 2e1 * e2 // e1 ** 2e2

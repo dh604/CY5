@@ -14,6 +14,8 @@ include("predictions.jl")
 include("CY4_vanishing.jl")
 include("P1_chain_5d.jl")
 include("gauge.jl")
+include("manual_predictions.jl")
+include("manual_examples.jl")
 
 export cc_mobius
 export gkm_3d_strip
@@ -31,5 +33,10 @@ export gkm_5d_p1_chain
 export get_Omega_prediction
 export gkm_3d_gauge
 export gkm_5d_gauge
+# TODO: check whether the below should actually be exported.
+export load_omega_data
+export omega_exp_substitution
+export omega_u_scaling
+export omega_series
 
 end
