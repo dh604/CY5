@@ -33,10 +33,9 @@ export gkm_5d_p1_chain
 export get_Omega_prediction
 export gkm_3d_gauge
 export gkm_5d_gauge
-# TODO: check whether the below should actually be exported.
-export load_omega_data
-export omega_exp_substitution
-export omega_u_scaling
-export omega_series
+export gkm_5d_P2_111
+export gkm_5d_P3_04
+export gkm_5d_P3_13
+export gkm_5d_P3_22
 
 end

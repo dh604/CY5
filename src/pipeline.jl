@@ -75,6 +75,7 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
   u = u[1]
 
   for b in all_betas
+    println("Calculating b=$b, g=0")
     gw0 = gromov_witten(G, b, 0, class_one(); g=0, show_bar=show_bar) // 1
     tmp = evaluate(gw0, t)//(u^2)
     for g in 1:gMax

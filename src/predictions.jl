@@ -171,23 +171,28 @@ function gkm_5d_closed_vertex_prediction(G::AbstractGKM_graph, t::Vector, u, bet
 end
 
 function gkm_5d_P2_111_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
-  d = beta[1]
-  return omega_series("P2_111", [d], t, u, 2*max_genus - 2)[d]
+  d = Int64(beta[1])
+  OS = omega_series("Omega_P2_111", [d], t, u, 2*max_genus - 2)
+  if !haskey(OS, d)
+    @warn "Degree $d not found in manual predictions. Returning zero instead."
+    return zero(u)
+  end
+  return OS[d]
 end
 
 function gkm_5d_P3_04_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
-  d = beta[1]
-  return omega_series("P3_04", [d], t, u, 2*max_genus - 2)[d]
+  d = Int64(beta[1])
+  return omega_series("Omega_P3_04", [d], t, u, 2*max_genus - 2)[d]
 end
 
 function gkm_5d_P3_13_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
-  d = beta[1]
-  return omega_series("P3_13", [d], t, u, 2*max_genus - 2)[d]
+  d = Int64(beta[1])
+  return omega_series("Omega_P3_13", [d], t, u, 2*max_genus - 2)[d]
 end
 
 function gkm_5d_P3_22_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
-  d = beta[1]
-  return omega_series("P3_22", [d], t, u, 2*max_genus - 2)[d]
+  d = Int64(beta[1])
+  return omega_series("Omega_P3_22", [d], t, u, 2*max_genus - 2)[d]
 end
 
 #

@@ -43,3 +43,11 @@ X_times_Ar
 ```@docs
 CY5_from_CY4
 ```
+
+## Further examples
+```@docs
+gkm_5d_P2_111
+gkm_5d_P3_04
+gkm_5d_P3_13
+gkm_5d_P3_22
+```

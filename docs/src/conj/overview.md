@@ -3,6 +3,9 @@
 In this section, we present for each conjecture and family of examples in [main_paper](@cite) the list of cases that we verified.
 
 !!! note
+    TODO: update table when contents are done to reflect structure of the paper.
+
+!!! note
     TODO: improve/elaborate/fill in `P3_m2_m2.jl` (as Section 7.3), `mixed_3d_strip.jl` (in Conjecture 4.2) and `free_P1_chain.jl` (as Section 4.3).
     Also fill in Conjecture 5.1 and expand material in Sections 7 and 8.
 
