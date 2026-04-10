@@ -32,9 +32,13 @@ julia> c = curve_class(G, Edge(2, 3))
 julia> max_genus = 1;
 
 julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false)
+Calculating b=(3, 0), g=0
 Calculating b=(3, 0), g=1
+Calculating b=(1, 0), g=0
 Calculating b=(1, 0), g=1
+Calculating b=(4, 0), g=0
 Calculating b=(4, 0), g=1
+Calculating b=(2, 0), g=0
 Calculating b=(2, 0), g=1
 Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
   (4, 0) => 0
@@ -49,9 +53,13 @@ Setting `check_predictios=true`, we can automatically check if $\Omega_\beta$ ma
 
 ```jldoctest pipeline_example
 julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false, check_predictions=true)
+Calculating b=(3, 0), g=0
 Calculating b=(3, 0), g=1
+Calculating b=(1, 0), g=0
 Calculating b=(1, 0), g=1
+Calculating b=(4, 0), g=0
 Calculating b=(4, 0), g=1
+Calculating b=(2, 0), g=0
 Calculating b=(2, 0), g=1
 Prediction holds for (4, 0)
 Prediction holds for (2, 0)
