@@ -162,6 +162,8 @@ function gkm_5d_gauge(N::Int64, m::Int64; equiCY::Bool=false)
   end
 
   set_attribute!(res, :example_type, :gauge)
+  set_attribute!(res, :N, N)
+  set_attribute!(res, :m, m)
 
   return res
 end

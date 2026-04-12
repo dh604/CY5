@@ -95,7 +95,7 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
   elseif et == :P3_22
     return gkm_5d_P3_22_prediction(G, t, u, beta, max_genus)
   elseif et == :gauge
-    error("Example type :gauge still needs to be implented.")
+    return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
   else
     error("Example type $et is not implemented.")
   end
@@ -242,4 +242,79 @@ function gkm_5d_free_strip_prediction(G::AbstractGKM_graph, t::Vector, u, beta::
 
   return one(u) * unit(num_fac) * unit(denom_fac) * t_sq_bracket_frac(nfs, dfs, max_deg)
 
+end
+
+function gkm_5d_gauge_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
+
+  N = get_attribute(G, :N)::Int
+  m = get_attribute(G, :m)::Int
+
+  H2 = parent(beta)
+  r = rank(H2)
+  L = 2*N - 1
+
+  # Build pi: M/~ -> H2 as an integer matrix Mmat with one column per generator.
+  cols = Vector{Vector{Int}}(undef, L)
+  for i in 1:N
+    c = curve_class(G, "v$i", "w$i")
+    cols[i] = [Int(c[k]) for k in 1:r]
+  end
+  for j in 1:N-1
+    c = curve_class(G, "v$(j+1)", "v$j")
+    cols[N + j] = [Int(c[k]) for k in 1:r]
+  end
+
+  Mmat = zeros(Int, r, L)
+  for i in 1:L, k in 1:r
+    Mmat[k, i] = cols[i][k]
+  end
+
+  beta_vec = [Int(beta[k]) for k in 1:r]
+
+  # Polytope { x in R^L : x >= 0, Mmat * x = beta_vec }.
+  A_ineq = zeros(Int, L, L)
+  for i in 1:L
+    A_ineq[i, i] = -1
+  end
+  b_ineq = zeros(Int, L)
+
+  P = polyhedron((A_ineq, b_ineq), (Mmat, beta_vec))
+
+  @req is_bounded(P) "preimage polytope under monoid->H2 map is unbounded; ker(pi) meets the nonnegative orthant nontrivially"
+
+  preimages = lattice_points(P)
+  @req !isempty(preimages) "no nonnegative integer preimage of beta under the monoid->H2 map"
+
+  Fu = fraction_field(parent(u))
+  result = zero(Fu)
+  for pt in preimages
+    tup = ntuple(k -> Int(pt[k]), L)
+    contrib = omega_beta_gauge(N, m, tup, max_genus)
+    result += _laurent_series_to_user_ring(contrib, t, u)
+  end
+
+  return result
+end
+
+function _laurent_series_to_user_ring(series, t::Vector, u)
+  Fu = fraction_field(parent(u))
+  uF = Fu(u)
+  v = valuation(series)
+  p = precision(series)
+  result = zero(Fu)
+  for k in v:p-1
+    c_k = coeff(series, k)
+    iszero(c_k) && continue
+    num = numerator(c_k)
+    den = denominator(c_k)
+    num_user = evaluate(num, [t[4], t[5]])
+    den_user = evaluate(den, [t[4], t[5]])
+    c_user = Fu(num_user) // Fu(den_user)
+    if k >= 0
+      result += c_user * uF^k
+    else
+      result += c_user // uF^(-k)
+    end
+  end
+  return result
 end
