@@ -14,6 +14,7 @@ include("predictions.jl")
 include("CY4_vanishing.jl")
 include("P1_chain_5d.jl")
 include("gauge.jl")
+include("gauge_prediction.jl")
 include("manual_predictions.jl")
 include("manual_examples.jl")
 
@@ -33,6 +34,7 @@ export gkm_5d_p1_chain
 export get_Omega_prediction
 export gkm_3d_gauge
 export gkm_5d_gauge
+export omega_beta_gauge #TODO: remove this export eventually
 export gkm_5d_P2_111
 export gkm_5d_P3_04
 export gkm_5d_P3_13
