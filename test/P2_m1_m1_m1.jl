@@ -1,4 +1,4 @@
-# Test independence of antidiagonal scaling parameter for O(-2)+O(-2) on P3.
+# Old first tests for O(-1)+O(-1)+O(-1) on P2.
 
 G = total_space(vector_bundle_O(2, [-1, -1, -1]))
 M = G.M

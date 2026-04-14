@@ -28,6 +28,8 @@ makedocs(
             "Conjecture 7.1" => "conj/Conj_7_1.md",
             "Section 7.2" => "conj/Conj_7_2.md",
             "Section 7.3" => "conj/Conj_7_3.md",
+            "Section 7.4" => "conj/Conj_7_4.md",
+            "Section 7.5" => "conj/Conj_7_5.md",
             "Conjecture 8.1" => "conj/Conj_8_1.md"
         ],
         "References" => "references.md"

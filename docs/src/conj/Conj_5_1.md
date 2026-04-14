@@ -14,6 +14,14 @@ using Markdown
 Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "gauge", "gauge_N3_m2.jl"), String) * "\n```")
 ```
 
+In the following file, we use an alternative implementation of the conjectural formula to test:
+
+
+```@eval
+using Markdown
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "gauge", "gauge_N3_m2_v2.jl"), String) * "\n```")
+```
+
 ### $N=3, m=4$
 
 In the following example with $|m|\ge N$, all equivariant parameters `t1`, `t3`, `t4`, `t5` appear.
