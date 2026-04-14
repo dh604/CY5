@@ -95,7 +95,9 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
   elseif et == :P3_22
     return gkm_5d_P3_22_prediction(G, t, u, beta, max_genus)
   elseif et == :gauge
-    return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
+    # switch here between gauge_prediction.jl (Claude) and gauge_prediction_2.jl (Codex)
+    # return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
+    return gkm_5d_gauge_prediction_2(G, t, u, beta, max_genus)
   else
     error("Example type $et is not implemented.")
   end
@@ -269,31 +271,9 @@ function gkm_5d_gauge_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, m
     Mmat[k, i] = cols[i][k]
   end
 
-  beta_vec = [Int(beta[k]) for k in 1:r]
-
-  # Polytope { x in R^L : x >= 0, Mmat * x = beta_vec }.
-  A_ineq = zeros(Int, L, L)
-  for i in 1:L
-    A_ineq[i, i] = -1
-  end
-  b_ineq = zeros(Int, L)
-
-  P = polyhedron((A_ineq, b_ineq), (Mmat, beta_vec))
-
-  @req is_bounded(P) "preimage polytope under monoid->H2 map is unbounded; ker(pi) meets the nonnegative orthant nontrivially"
-
-  preimages = lattice_points(P)
-  @req !isempty(preimages) "no nonnegative integer preimage of beta under the monoid->H2 map"
-
-  Fu = fraction_field(parent(u))
-  result = zero(Fu)
-  for pt in preimages
-    tup = ntuple(k -> Int(pt[k]), L)
-    contrib = omega_beta_gauge(N, m, tup, max_genus)
-    result += _laurent_series_to_user_ring(contrib, t, u)
-  end
-
-  return result
+  beta_vec = ntuple(k -> Int(beta[k]), r)
+  contrib = omega_beta_gauge_h2(N, m, Mmat, beta_vec, max_genus)
+  return _laurent_series_to_user_ring(contrib, t, u)
 end
 
 function _laurent_series_to_user_ring(series, t::Vector, u)

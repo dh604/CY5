@@ -403,6 +403,80 @@ function _log_Z(Z_dict::Dict{NTuple{L,Int}, T}, gamma::NTuple{L,Int},
   return result
 end
 
+# ---------- Pushforward from the monoid algebra M/~ to H2 ----------
+
+function _pushforward_Z_dict(Z_dict::Dict{NTuple{L,Int}, T},
+                             Mmat::Matrix{Int},
+                             gamma_h2::NTuple{R,Int},
+                             K) where {L, R, T}
+  @assert size(Mmat) == (R, L) "expected Mmat to have size ($(R), $(L)), got $(size(Mmat))"
+
+  result = Dict{NTuple{R,Int}, T}()
+  for (ev, c) in Z_dict
+    img = ntuple(k -> sum(Mmat[k, i] * ev[i] for i in 1:L), R)
+    any(img[k] < 0 || img[k] > gamma_h2[k] for k in 1:R) && continue
+    result[img] = get(result, img, K(0)) + c
+  end
+
+  for k in collect(keys(result))
+    iszero(result[k]) && delete!(result, k)
+  end
+  return result
+end
+
+# ---------- Bounding box in M/~ needed to compute a fixed H2-class ----------
+
+function _max_monoid_preimage_bound(Mmat::Matrix{Int}, beta_vec::Vector{Int})
+  r, L = size(Mmat)
+  @assert length(beta_vec) == r "beta_vec has length $(length(beta_vec)), expected $r"
+
+  A_ineq = zeros(Int, L, L)
+  for i in 1:L
+    A_ineq[i, i] = -1
+  end
+  b_ineq = zeros(Int, L)
+
+  P = polyhedron((A_ineq, b_ineq), (Mmat, beta_vec))
+
+  @req is_bounded(P) "preimage polytope under monoid->H2 map is unbounded; ker(pi) meets the nonnegative orthant nontrivially"
+
+  preimages = lattice_points(P)
+  @req !isempty(preimages) "no nonnegative integer preimage of beta under the monoid->H2 map"
+
+  gamma = zeros(Int, L)
+  for pt in preimages
+    for i in 1:L
+      gamma[i] = max(gamma[i], Int(pt[i]))
+    end
+  end
+
+  return ntuple(i -> gamma[i], L)
+end
+
+# ---------- Common Möbius extraction step ----------
+
+function _omega_from_log_dict(logZ::Dict{NTuple{L, T1}, T2},
+                              beta_t::NTuple{L,Int},
+                              r4, r5, K, g_max::Int) where {L, T1, T2}
+  nonzero_components = Int[beta_t[i] for i in 1:L if beta_t[i] > 0]
+  g = foldl(gcd, nonzero_components)
+
+  total = K(0)
+  for k in 1:g
+    g % k == 0 || continue
+    mu_k = _moebius_mu(k)
+    mu_k == 0 && continue
+    beta_over_k = ntuple(i -> div(beta_t[i], k), L)
+    @assert all(beta_over_k[i] * k == beta_t[i] for i in 1:L)
+    coeff_raw = get(logZ, beta_over_k, K(0))
+    iszero(coeff_raw) && continue
+    coeff_k = _adams_substitute(coeff_raw, k, r4, r5, K)
+    total += (K(mu_k) // K(k)) * coeff_k
+  end
+
+  return _substitute_exp_and_expand(total, g_max)
+end
+
 # ---------- Adams substitution r4 -> r4^k, r5 -> r5^k on a K element ----------
 
 function _adams_substitute(c, k::Int, r4, r5, K)
@@ -612,23 +686,29 @@ function omega_beta_gauge(N::Int, m::Int, beta, g_max::Int;
   Z_dict = _compute_Z_dict(N, m, gamma, r4, r5, K;
                            use_formula_as_written = use_formula_as_written)
   logZ = _log_Z(Z_dict, gamma, K)
+  return _omega_from_log_dict(logZ, beta_t, r4, r5, K, g_max)
+end
 
-  # Mobius / plethystic-logarithm sum over k | gcd(nonzero components of beta).
-  nonzero_components = Int[beta_t[i] for i in 1:L if beta_t[i] > 0]
-  g = foldl(gcd, nonzero_components)
+function omega_beta_gauge_h2(N::Int, m::Int, Mmat::Matrix{Int}, beta_h2, g_max::Int;
+                             use_formula_as_written::Bool = true)
+  @req N >= 1 "N must be positive"
 
-  total = K(0)
-  for k in 1:g
-    g % k == 0 || continue
-    mu_k = _moebius_mu(k)
-    mu_k == 0 && continue
-    beta_over_k = ntuple(i -> div(beta_t[i], k), L)
-    @assert all(beta_over_k[i] * k == beta_t[i] for i in 1:L)
-    coeff_raw = get(logZ, beta_over_k, K(0))
-    iszero(coeff_raw) && continue
-    coeff_k = _adams_substitute(coeff_raw, k, r4, r5, K)
-    total += (K(mu_k) // K(k)) * coeff_k
-  end
+  beta_t = Tuple(Int(x) for x in beta_h2)
+  Rdim = length(beta_t)
+  @req size(Mmat) == (Rdim, 2*N - 1) "expected Mmat to have size ($(Rdim), $(2*N-1)), got $(size(Mmat))"
+  @req all(x -> x >= 0, beta_t) "beta_h2 must have nonnegative entries"
+  @req any(x -> x > 0, beta_t) "beta_h2 must be nonzero"
 
-  return _substitute_exp_and_expand(total, g_max)
+  R, (r4, r5) = polynomial_ring(QQ, ["r4", "r5"])
+  K = fraction_field(R)
+
+  beta_vec = [beta_t[i] for i in 1:Rdim]
+  gamma_monoid = _max_monoid_preimage_bound(Mmat, beta_vec)
+
+  Z_monoid = _compute_Z_dict(N, m, gamma_monoid, r4, r5, K;
+                             use_formula_as_written = use_formula_as_written)
+  Z_h2 = _pushforward_Z_dict(Z_monoid, Mmat, beta_t, K)
+  logZ_h2 = _log_Z(Z_h2, beta_t, K)
+
+  return _omega_from_log_dict(logZ_h2, beta_t, r4, r5, K, g_max)
 end
