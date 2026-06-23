@@ -72,7 +72,7 @@ The above is an illustration of how the pipeline works.
 When [`get_Omega_beta`](@ref) is used with `check_predictions=true`, it uses the same mechanism
 to determine if the actual $\Omega_\beta$ matches the conjectured one.
 """
-function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res)
+function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res) # TODO: remove res dependency, as unused.
   @req has_attribute(G, :example_type) "G has no prediction for Omega."
   et = get_attribute(G, :example_type)
 
@@ -95,9 +95,12 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
   elseif et == :P3_22
     return gkm_5d_P3_22_prediction(G, t, u, beta, max_genus)
   elseif et == :gauge
-    # switch here between gauge_prediction.jl (Claude) and gauge_prediction_2.jl (Codex)
+    # switch here between the gauge prediction implementations.
+    # gauge_prediction.jl / gauge_prediction_2.jl follow an earlier, mistaken spec;
+    # gauge_prediction_3.jl follows the revised spec in GAUGE_latex_specs.tex.
     # return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
-    return gkm_5d_gauge_prediction_2(G, t, u, beta, max_genus)
+    # return gkm_5d_gauge_prediction_2(G, t, u, beta, max_genus)
+    return gkm_5d_gauge_prediction_3(G, t, u, beta, max_genus)
   else
     error("Example type $et is not implemented.")
   end

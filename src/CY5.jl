@@ -16,6 +16,7 @@ include("P1_chain_5d.jl")
 include("gauge.jl")
 include("gauge_prediction.jl")
 include("gauge_prediction_2.jl")
+include("gauge_prediction_3.jl")
 include("manual_predictions.jl")
 include("manual_examples.jl")
 
