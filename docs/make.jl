@@ -9,7 +9,7 @@ bib = CitationBibliography(
 )
 
 makedocs(
-    sitename = "CY5",
+    sitename = "Membranes, Maps and Sheaves",
     modules  = [CY5],
     plugins  = [bib],
     warnonly = true,
@@ -17,6 +17,7 @@ makedocs(
     pages    = [
         "Home"       => "index.md",
         "Gromov-Witten computations" => [
+            "The package CY5.jl"    => "cy5_overview.md",
             "Pipeline"   => "pipeline.md",
             "Spaces" => "spaces.md",
             "Example"   => "example.md",
