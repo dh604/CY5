@@ -11,17 +11,17 @@ c = curve_class(G, Edge(1, 4))
 
 # perform tests
 
-get_Omega_beta(G, [4*b], 2; check_predictions = true)
+get_Omega_beta(G, [4*b], 3; check_predictions = true)
 # all zero
 
-get_Omega_beta(G, [3*b], 2; check_predictions = true)
+get_Omega_beta(G, [3*b], 3; check_predictions = true)
 # all zero
 
-get_Omega_beta(G, [2*b+2*c], 2; check_predictions = true)
+get_Omega_beta(G, [2*b+2*c], 3; check_predictions = true)
 # all zero
 
-get_Omega_beta(G, [2*b+c], 2; check_predictions = true)
+get_Omega_beta(G, [2*b+c], 3; check_predictions = true)
 # all zero
 
-get_Omega_beta(G, [3*b+c], 2; check_predictions = true)
+get_Omega_beta(G, [3*b+c], 3; check_predictions = true)
 # all zero

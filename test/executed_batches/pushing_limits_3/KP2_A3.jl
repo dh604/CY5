@@ -17,5 +17,6 @@ d = curve_class(G, "1,3", "1,4")
 # curve class of P2
 H = curve_class(G, "1,1", "2,1")
 
+# Has this finished?
 
 get_Omega_beta(G, [2*H + 4*c], 3; check_predictions=true)

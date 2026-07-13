@@ -15,6 +15,8 @@ max_genus = 3
 
 # get_Omega_beta(G, [3*b1+3*b2+3*b3], max_genus; check_predictions=true)
 
+# Have the below finished?
+
 get_Omega_beta(G, [4*b1+4*b2+4*b3], max_genus; check_predictions=true)
 
 get_Omega_beta(G, [4*b1+2*b2+4*b3], max_genus; check_predictions=true)

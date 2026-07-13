@@ -10,5 +10,5 @@
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "P3_13.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "P3_13.jl"), String) * "\n```")
 ```

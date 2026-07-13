@@ -17,14 +17,14 @@ such that $\overline{M}_g(Y,\beta)$ is proper for all $g\ge 0$.
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "CY4_vanishing", "P2.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "CY4_vanishing", "P2.jl"), String) * "\n```")
 ```
 
 #### The case $\mathcal{O}(-1, -1)\oplus \mathcal{O}(-1, -1)$ on $\mathbb{P}^1\times\mathbb{P}^1$
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "CY4_vanishing", "P1_P1_1_1.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "CY4_vanishing", "P1_P1_1_1.jl"), String) * "\n```")
 ```
 
 
@@ -32,5 +32,5 @@ Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", 
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "CY4_vanishing", "P1_P1_0_2.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "CY4_vanishing", "P1_P1_0_2.jl"), String) * "\n```")
 ```

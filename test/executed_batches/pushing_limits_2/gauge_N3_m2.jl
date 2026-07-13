@@ -9,6 +9,8 @@ B = [curve_class(G, "v$i", "w$i") for i in 1:N]
 
 gMax = 2
 
+# Has this finished?
+
 get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
 
 get_Omega_beta(G, [2*B[2]], gMax; check_predictions=true)

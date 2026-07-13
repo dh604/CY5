@@ -40,7 +40,7 @@ For example, the command `get_Omega_beta(G, [6*b], max_genus; check_predictions=
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "Ar_C3.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "Ar_C3.jl"), String) * "\n```")
 ```
 
 #### Chains of $\mathcal{O}(-1)\oplus\mathcal{O}(-1)$
@@ -50,7 +50,7 @@ We set $r=3$.
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "minus_1_minus_1_chain.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "minus_1_minus_1_chain.jl"), String) * "\n```")
 ```
 
 #### A mixed example
@@ -60,5 +60,5 @@ Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", 
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "mixed_3d_strip.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "mixed_3d_strip.jl"), String) * "\n```")
 ```

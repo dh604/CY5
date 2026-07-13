@@ -13,12 +13,12 @@
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "P3_22.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "P3_22.jl"), String) * "\n```")
 ```
 
 ### Independence of the antidiagonal scaling parameter
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "P3_m2_m2.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "P3_m2_m2.jl"), String) * "\n```")
 ```

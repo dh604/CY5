@@ -29,5 +29,5 @@ For all other $\beta$, the conjecture states
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "cl_vertex.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "cl_vertex.jl"), String) * "\n```")
 ```

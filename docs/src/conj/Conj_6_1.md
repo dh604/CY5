@@ -15,19 +15,19 @@ for any $\beta$ such that $\overline{M}_g(Z,\beta)$ is proper for all $g\ge 0$.
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "KP2_A3.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "KP2_A3.jl"), String) * "\n```")
 ```
 
 #### The case $\text{Tot}(K_{\Sigma_5})\times \mathcal{A}^r$
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "KH5_A3.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "KH5_A3.jl"), String) * "\n```")
 ```
 
 #### The case $\mathcal{A}_s\times\mathbb{C}\times \mathcal{A}^r$
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "As_C_Ar.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "As_C_Ar.jl"), String) * "\n```")
 ```

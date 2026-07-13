@@ -7,8 +7,8 @@ b = curve_class(G, Edge(1, 2))
 
 # perform tests
 
-get_Omega_beta(G, [4*b], 2; check_predictions = true)
+get_Omega_beta(G, [4*b], 3; check_predictions = true)
 # all zero
 
-get_Omega_beta(G, [3*b], 2; check_predictions = true)
+get_Omega_beta(G, [3*b], 3; check_predictions = true)
 # all zero

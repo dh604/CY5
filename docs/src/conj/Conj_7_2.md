@@ -8,14 +8,17 @@
 
 ### Testing the conjectural expression
 
+!!! note
+    TODO: test $d=4$ case with corrected formula.
+
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "P2_111.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "P2_111.jl"), String) * "\n```")
 ```
 
 ### Some old initial tests
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "P2_m1_m1_m1.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "P2_m1_m1_m1.jl"), String) * "\n```")
 ```

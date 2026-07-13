@@ -8,5 +8,5 @@ and $Z$ falsifies Conjecture 4.3 since $\Omega_{2\beta}\neq 0$ for a certain $\b
 
 ```@eval
 using Markdown
-Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "free_P1_chain.jl"), String) * "\n```")
+Markdown.parse("```julia\n" * read(joinpath(@__DIR__, "..", "..", "..", "test", "results", "free_P1_chain.jl"), String) * "\n```")
 ```
