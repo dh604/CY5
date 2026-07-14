@@ -136,27 +136,33 @@ of $GW_{\beta}(Z,T)$ for each curve class $\beta$ listed in `beta`.
 
 # Example
 
-Let us compute $GW_\beta(Z,T)$ in degrees $\beta=1,2,3$ for $Z=\mathcal{A}_1\times\mathbb{C}^3$ as obtained using [`Ar_times_C3`](@ref).
-We compute the answers up to genus 2. That is, the highest power of $u$ is $u^2$.
+Let us compute $GW_\beta(Z,T)$ in degrees $\beta=1,2,3$ for $\text{Tot}_{\mathbb{P}^1}(\mathcal{O}(-2))\times\mathbb{C}^3$ as defined in [main_paper; Example 1.1](@cite) (see [`gkm_graph_of_example_1_1`](@ref)).
+We compute the answers up to genus 1. That is, the highest power of $u$ that appears is $u^2$.
 
 ```jldoctest
-julia> G = Ar_times_C3(1);
+julia> G = gkm_graph_of_example_1_1();
 
 julia> beta = curve_class(G, Edge(1, 2));
 
 julia> gMax = 1;
 
-julia> get_GW_beta(G, [b, 2*b, 3*b], gMax; show_bar=false)
+julia> GW = get_GW_beta(G, [beta, 2*beta, 3*beta], gMax; show_bar=false);
 Calculating b=(1), g=0
 Calculating b=(1), g=1
 Calculating b=(2), g=0
 Calculating b=(2), g=1
 Calculating b=(3), g=0
 Calculating b=(3), g=1
-Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 3 entries:
-  (2) => (1//24*t2^2*t4*u^2 + 1//24*t2^2*t5*u^2 + 1//24*t2*t4^2*u^2 + 1//24*t2*t4*t5*u^2 + 1//24*t2*t5^2*u^2 - 1//8*t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
-  (1) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
-  (3) => (1//36*t2^2*t4*u^2 + 1//36*t2^2*t5*u^2 + 1//36*t2*t4^2*u^2 + 1//36*t2*t4*t5*u^2 + 1//36*t2*t5^2*u^2 - 1//27*t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+
+julia> GW[beta]
+(1//12*t1*t4*t5*u^2 + 1//12*t1*t4*t6*u^2 + 1//12*t1*t5*t6*u^2 + t1 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t4*t6*u^2 + 1//12*t2*t5*t6*u^2 + t2 + 1//12*t3*t4*t5*u^2 + 1//12*t3*t4*t6*u^2 + 1//12*t3*t5*t6*u^2 + t3)//(t4*t5*t6*u^2)
+
+julia> GW[2*beta]
+(1//24*t1*t4*t5*u^2 + 1//24*t1*t4*t6*u^2 + 1//24*t1*t5*t6*u^2 + 1//8*t1 + 1//24*t2*t4*t5*u^2 + 1//24*t2*t4*t6*u^2 + 1//24*t2*t5*t6*u^2 + 1//8*t2 + 1//24*t3*t4*t5*u^2 + 1//24*t3*t4*t6*u^2 + 1//24*t3*t5*t6*u^2 + 1//8*t3)//(t4*t5*t6*u^2)
+
+julia> GW[3*beta]
+(1//36*t1*t4*t5*u^2 + 1//36*t1*t4*t6*u^2 + 1//36*t1*t5*t6*u^2 + 1//27*t1 + 1//36*t2*t4*t5*u^2 + 1//36*t2*t4*t6*u^2 + 1//36*t2*t5*t6*u^2 + 1//27*t2 + 1//36*t3*t4*t5*u^2 + 1//36*t3*t4*t6*u^2 + 1//36*t3*t5*t6*u^2 + 1//27*t3)//(t4*t5*t6*u^2)
+
 ```
 """
 function get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC

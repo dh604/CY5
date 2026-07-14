@@ -19,6 +19,7 @@ include("gauge_prediction_2.jl")
 include("gauge_prediction_3.jl")
 include("manual_predictions.jl")
 include("manual_examples.jl")
+include("example_spaces.jl")
 
 export cc_mobius
 export gkm_3d_strip
@@ -42,5 +43,6 @@ export gkm_5d_P2_111
 export gkm_5d_P3_04
 export gkm_5d_P3_13
 export gkm_5d_P3_22
+export gkm_graph_of_example_1_1
 
 end
