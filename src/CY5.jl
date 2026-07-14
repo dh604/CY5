@@ -23,6 +23,7 @@ include("manual_examples.jl")
 export cc_mobius
 export gkm_3d_strip
 export gkm_5d_strip
+export get_GW_beta
 export get_Omega_beta
 export gkm_5d_strip_prediction
 export Ar_times_C1

@@ -75,25 +75,8 @@ Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
 ```
 """
 function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, show_bar::Bool=true) where T <: CC
-  all_betas = downward_close_ccs(betas)
-  res = Dict{CC, Any}()
-
-  # Add u variable for mobius transformation!
-  S, t, u = polynomial_ring(QQ, ["t$i" for i in 1:rank_torus(G)], ["u"])
-  u = u[1]
-
-  for b in all_betas
-    println("Calculating b=$b, g=0")
-    gw0 = gromov_witten(G, b, 0, class_one(); g=0, show_bar=show_bar) // 1
-    tmp = evaluate(gw0, t)//(u^2)
-    for g in 1:gMax
-      println("Calculating b=$b, g=$g")
-      gw = gromov_witten(G, b, 0, class_one(); g=g, show_bar=show_bar) // 1
-      tmp += evaluate(gw, t) * u^(2*g - 2)
-    end
-    res[b] = tmp
-  end
-
+  
+  res = get_GW_beta(G, betas, gMax; show_bar=show_bar)
   res = cc_mobius(res)
 
   prediction_tests = Dict{CC, Bool}()
@@ -128,6 +111,72 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
     else
       println()
     end
+  end
+
+  return res
+end
+
+@doc raw"""
+    get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC
+
+Let $(Z,T)$ be a GKM space with GKM graph $G$.
+Return the leading part
+```math
+  \sum_{g \ge 0}^{\text{gMax}}u^{2g-2} GW_{g,\beta}(Z,T)
+```
+of $GW_{\beta}(Z,T)$ for each curve class $\beta$ listed in `beta`.
+
+## Arguments
+* `G`: the GKM graph of the GKM space $(Z,T)$ whose $GW_\beta(Z,T)$ should be computed.
+* `betas`: the vector of curve classes on $Z$ for which $GW_\beta(Z,T)$ should be computed.
+* `gMax`: the maximum genus up to which each $GW_\beta(Z,T)$ will be approximated. That is,
+          the highest order term will be $u^{2\text{gMax}-2}$.
+* `show_bar`: this optional argument can be set to `false` to disable the progress bar of the Gromov-Witten localization computation.
+
+
+# Example
+
+Let us compute $GW_\beta(Z,T)$ in degrees $\beta=1,2,3$ for $Z=\mathcal{A}_1\times\mathbb{C}^3$ as obtained using [`Ar_times_C3`](@ref).
+We compute the answers up to genus 2. That is, the highest power of $u$ is $u^2$.
+
+```jldoctest
+julia> G = Ar_times_C3(1);
+
+julia> beta = curve_class(G, Edge(1, 2));
+
+julia> gMax = 1;
+
+julia> get_GW_beta(G, [b, 2*b, 3*b], gMax; show_bar=false)
+Calculating b=(1), g=0
+Calculating b=(1), g=1
+Calculating b=(2), g=0
+Calculating b=(2), g=1
+Calculating b=(3), g=0
+Calculating b=(3), g=1
+Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 3 entries:
+  (2) => (1//24*t2^2*t4*u^2 + 1//24*t2^2*t5*u^2 + 1//24*t2*t4^2*u^2 + 1//24*t2*t4*t5*u^2 + 1//24*t2*t5^2*u^2 - 1//8*t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+  (1) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+  (3) => (1//36*t2^2*t4*u^2 + 1//36*t2^2*t5*u^2 + 1//36*t2*t4^2*u^2 + 1//36*t2*t4*t5*u^2 + 1//36*t2*t5^2*u^2 - 1//27*t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+```
+"""
+function get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC
+  all_betas = downward_close_ccs(betas)
+  res = Dict{CC, Any}()
+
+  # Add u variable for mobius transformation!
+  S, t, u = polynomial_ring(QQ, ["t$i" for i in 1:rank_torus(G)], ["u"])
+  u = u[1]
+
+  for b in all_betas
+    println("Calculating b=$b, g=0")
+    gw0 = gromov_witten(G, b, 0, class_one(); g=0, show_bar=show_bar) // 1
+    tmp = evaluate(gw0, t)//(u^2)
+    for g in 1:gMax
+      println("Calculating b=$b, g=$g")
+      gw = gromov_witten(G, b, 0, class_one(); g=g, show_bar=show_bar) // 1
+      tmp += evaluate(gw, t) * u^(2*g - 2)
+    end
+    res[b] = tmp
   end
 
   return res
