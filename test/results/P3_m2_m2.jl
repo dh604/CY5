@@ -1,5 +1,7 @@
 # Test independence of antidiagonal scaling parameter for O(-2)+O(-2) on P3.
 
+using Oscar, GKMtools, CY5
+
 G = total_space(vector_bundle_O(3, [-2, -2]))
 M = G.M
 M2 = free_module(ZZ, 4)

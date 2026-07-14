@@ -48,6 +48,8 @@ Our pipeline has the following structure.
 Steps 1. and 2. are implemented as one function for each family of spaces that we check in the paper (see [Spaces](spaces.md)).
 Steps 3.-5. are implemented in the function [`get_Omega_beta`](@ref) below.
 
+A more detailed example of how the pipeline works can be found [here](example.md).
+
 ```@docs
 get_Omega_beta
 get_Omega_prediction

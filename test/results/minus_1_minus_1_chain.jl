@@ -1,5 +1,7 @@
 # File to test a O(-1)+O(-1) chain of length r.
 
+using Oscar, GKMtools, CY5
+
 r = 3
 G = minus_one_minus_one_chain(r)
 b = curve_class(G, Edge(1, 2))

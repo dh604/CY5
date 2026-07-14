@@ -126,7 +126,7 @@ has weights $\epsilon_4, \epsilon_5$.
     Calabi-Yau.
 
 # Example
-Let us produce the example of [`gmk_3d_strip`] times $\mathbb{C}^2$.
+Let us produce the example of [`gmk_3d_strip`](@ref) times $\mathbb{C}^2$.
 ```jldoctest
 julia> G = gkm_5d_strip([1, -1, 1])
 GKM graph with 3 nodes, valency 5 and axial function:

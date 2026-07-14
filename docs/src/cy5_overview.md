@@ -11,7 +11,6 @@ We build on the Julia package [GKMtools.jl](https://mgemath.github.io/GKMtools.j
 * [Spaces](spaces.md): list of spaces that are implemented to work with the pipeline.
 * [Example](example.md): an example of the above workflow, worked out in detail.
 * [Conjectures](conj/overview.md): for each conjecture of the paper, a list of verified cases and the associated code.
-* [References](references.md)
 
 
 ## Installation

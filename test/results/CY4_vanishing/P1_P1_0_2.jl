@@ -1,5 +1,7 @@
 # Test GW vanishing for (O(-2,0)+O(0,-2) on P1xP1) x C
 
+using Oscar, GKMtools, CY5
+
 P1_P1 = hirzebruch_surface(NormalToricVariety, 0)
 P = picard_group(P1_P1)
 L1 = toric_line_bundle(P1_P1, -2*P[1]) # O(-2, 0)

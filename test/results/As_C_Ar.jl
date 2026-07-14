@@ -1,5 +1,7 @@
 # Test conjecture for A_s x C^1 x A_r
 
+using Oscar, GKMtools, CY5
+
 s = 2
 r = 3
 

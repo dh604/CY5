@@ -1,6 +1,8 @@
 # (N, m) = (3, 4), outside the range of the conjecture.
 # Computed values show dependence other than t4 and t5.
 
+using Oscar, GKMtools, CY5
+
 N = 3
 m = 4
 

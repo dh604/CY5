@@ -1,5 +1,7 @@
 # Test the conjecture for the 5d closed vertex.
 
+using Oscar, GKMtools, CY5
+
 G = gkm_5d_closed_vertex(;equiCY=true)
 
 b1 = curve_class(G, "0,1", "1,1")

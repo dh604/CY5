@@ -1,5 +1,7 @@
 # Test conjecture for Tot(K_{Hirzebruch_5}) x A_r
 
+using Oscar, GKMtools, CY5
+
 r = 3
 
 Y = gkm_graph_of_toric(hirzebruch_surface(NormalToricVariety, 5))
