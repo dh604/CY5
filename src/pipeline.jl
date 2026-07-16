@@ -3,7 +3,11 @@
     get_Omega_beta(G::AbstractGKM_graph, betas::Vector, gMax::Int64; check_predictions::Bool=false)
 
 Return a dictionary assigning to each curve class $\beta$ in `betas` the invariant
-$\Omega_b$ as rational function in the equivariant parameters and the genus parameter $u$.
+$\Omega_\beta$ as rational function in the equivariant parameters and the genus parameter $u$.
+Internally, this function uses [`get_GW_beta`](@ref) to get the Gromov-Witten invariants required
+to compute $\Omega_\beta$.
+
+The output also contains $\Omega_\beta$ for every $\beta$ for which some positive integer multiple is contained in `beta`.
 
 ## Arguments
 * `G`: the GKM graph of the space $X$ whose $\Omega_\beta$ should be computed.
@@ -15,9 +19,9 @@ $\Omega_b$ as rational function in the equivariant parameters and the genus para
           are retrieved from [`get_Omega_prediction`](@ref).
 * `show_bar`: this optional argument can be set to `false` to disable the progress bar of the Gromov-Witten localization computation.
 
-## Example
+## Example 1: Computing $\Omega_\beta$
 Let us compute the genus zero and genus one terms of
-$\Omega_\beta$ for the example $Z=\mathcal{A}_2\times \mathbb{C}^2$ (see [Spaces](spaces.md)).
+$\Omega_\beta$ for the example $Z=\mathcal{A}_2\times \mathbb{C}^3$ (see [Spaces](spaces.md)), for some examples of $\beta$.
 
 
 ```jldoctest pipeline_example
@@ -31,7 +35,7 @@ julia> c = curve_class(G, Edge(2, 3))
 
 julia> max_genus = 1;
 
-julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false)
+julia> Omega = get_Omega_beta(G, [3*b, 4*b, b+c], max_genus; show_bar=false);
 Calculating b=(3, 0), g=0
 Calculating b=(3, 0), g=1
 Calculating b=(1, 0), g=0
@@ -40,19 +44,32 @@ Calculating b=(4, 0), g=0
 Calculating b=(4, 0), g=1
 Calculating b=(2, 0), g=0
 Calculating b=(2, 0), g=1
-Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
-  (4, 0) => 0
-  (2, 0) => 0
-  (3, 0) => 0
-  (1, 0) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+Calculating b=(1, 1), g=0
+Calculating b=(1, 1), g=1
+
+julia> Omega[b]
+(1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
+
+julia> Omega[2*b]
+0
+
+julia> Omega[3*b]
+0
+
+julia> Omega[4*b]
+0
+
+julia> Omega[b+c]
+(1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
 ```
 The equivariant parameters $\epsilon_1,\epsilon_2,\dots$ are displayed as `t1`, `t2`, etc.
 
+# Example 2: Checking conjectured values of $\Omega_\beta$
 Setting `check_predictios=true`, we can automatically check if $\Omega_\beta$ matches the output of
 [`get_Omega_prediction`](@ref):
 
 ```jldoctest pipeline_example
-julia> get_Omega_beta(G, [3*b, 4*b], max_genus; show_bar=false, check_predictions=true)
+julia> get_Omega_beta(G, [3*b, 4*b, b+c], max_genus; show_bar=false, check_predictions=true);
 Calculating b=(3, 0), g=0
 Calculating b=(3, 0), g=1
 Calculating b=(1, 0), g=0
@@ -61,22 +78,54 @@ Calculating b=(4, 0), g=0
 Calculating b=(4, 0), g=1
 Calculating b=(2, 0), g=0
 Calculating b=(2, 0), g=1
+Calculating b=(1, 1), g=0
+Calculating b=(1, 1), g=1
 Prediction holds for (4, 0)
 Prediction holds for (2, 0)
 Prediction holds for (3, 0)
+Prediction holds for (1, 1)
 Prediction holds for (1, 0)
 All predictions hold.
-Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 4 entries:
-  (4, 0) => 0
-  (2, 0) => 0
-  (3, 0) => 0
-  (1, 0) => (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
-
 ```
+In this case, all predicticted values of $\Omega_\beta$ hold in the tested range.
+
+# Example 3: Behavior when the conjecture fails
+
+Let us also see an example in which the conjectured value of $\Omega_\beta$ does not agree with the true value computed from Gromov-Witten invariants.
+We take $Z=K_{\mathbb{P}^2}\times\mathcal{A}_3$, maximum genus zero, and curve classes for which the properness asumption
+of [main_paper; Conjecture 3.6](@cite) does not hold.
+
+```jldoctest
+julia> P2 = projective_space(GKM_graph, 2);
+
+julia> Ktot = total_space(wedge_product(cotangent_bd(P2), 2));
+
+julia> G = X_times_Ar(Ktot, 3; equiCY = true);
+
+julia> b = curve_class(G, "1,1", "1,2")
+(1, 0, 0, 0)
+
+julia> Omega = get_Omega_beta(G, [2*b], 0; check_predictions=true, show_bar=false);
+Calculating b=(2, 0, 0, 0), g=0
+Calculating b=(1, 0, 0, 0), g=0
+Prediction fails for (1, 0, 0, 0):
+  prediction = 0
+Prediction holds for (2, 0, 0, 0)
+
+julia> Omega[b]
+(9*t4)//(t1^3*u^2 - 3//2*t1^2*t2*u^2 - 3//2*t1^2*t3*u^2 + 3*t1^2*t4*u^2 - 3//2*t1*t2^2*u^2 + 6*t1*t2*t3*u^2 - 3*t1*t2*t4*u^2 - 3//2*t1*t3^2*u^2 - 3*t1*t3*t4*u^2 + t2^3*u^2 - 3//2*t2^2*t3*u^2 + 3*t2^2*t4*u^2 - 3//2*t2*t3^2*u^2 - 3*t2*t3*t4*u^2 + t3^3*u^2 + 3*t3^2*t4*u^2 - 4*t4^3*u^2)
+```
+Let $\beta$ be the curve class denoted by `b` in the code.
+As we see, the conjectured value for $\Omega_\beta$ is zero, but the true value is non-zero.
+The printed output highlights whenever the conjectured value is incorrect.
+
+Mathematically, this example is not a counterexample to [main_paper; Conjecture 3.6](@cite)
+because one of the conjecture's assumptions is not satisfied in this case.
 """
 function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, show_bar::Bool=true) where T <: CC
   
-  res = get_GW_beta(G, betas, gMax; show_bar=show_bar)
+  res, t, u = get_GW_beta(G, betas, gMax; show_bar=show_bar, return_t_u=true)
+
   res = cc_mobius(res)
 
   prediction_tests = Dict{CC, Bool}()
@@ -120,11 +169,15 @@ end
     get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC
 
 Let $(Z,T)$ be a GKM space with GKM graph $G$.
-Return the leading part
+Return the truncated Grommov--Witten series
 ```math
-  \sum_{g \ge 0}^{\text{gMax}}u^{2g-2} GW_{g,\beta}(Z,T)
+\sum_{g \ge 0}^{\text{gMax}}u^{2g-2} GW_{g,\beta}(Z,T)
 ```
-of $GW_{\beta}(Z,T)$ for each curve class $\beta$ listed in `beta`.
+for each curve class $\beta$ listed in `beta`.
+  The individual Gromov-Witten invariants are computed using the function [`gromov_witten`](https://mgemath.github.io/GKMtools.jl/stable/GW/GW/#GKMtools.gromov_witten)
+  of [GKMtools](https://mgemath.github.io/GKMtools.jl/).
+
+The output also contains the truncated Gromov-Witten series for each curve class with some positive integer multiple contained in `betas`.
 
 ## Arguments
 * `G`: the GKM graph of the GKM space $(Z,T)$ whose $GW_\beta(Z,T)$ should be computed.
@@ -136,8 +189,16 @@ of $GW_{\beta}(Z,T)$ for each curve class $\beta$ listed in `beta`.
 
 # Example
 
-Let us compute $GW_\beta(Z,T)$ in degrees $\beta=1,2,3$ for $\text{Tot}_{\mathbb{P}^1}(\mathcal{O}(-2))\times\mathbb{C}^3$ as defined in [main_paper; Example 1.1](@cite) (see [`gkm_graph_of_example_1_1`](@ref)).
-We compute the answers up to genus 1. That is, the highest power of $u$ that appears is $u^2$.
+Let us compute the Gromov-Witten series in degrees $\beta=1,2,3$ for the example
+
+```math
+Z = \text{Tot}_{\mathbb{P}^1}(\mathcal{O}(-2))\times\mathbb{C}^3
+```
+and the $T$-action defined in [main_paper; Example 1.1](@cite).
+Its GKM graph can be obtained using [`gkm_graph_of_example_1_1`](@ref).
+
+We compute the Gromov-Witten series up to genus 1.
+That is, the powers of $u$ that appear are $u^{-2}$ and $1$.
 
 ```jldoctest
 julia> G = gkm_graph_of_example_1_1();
@@ -165,7 +226,7 @@ julia> GW[3*beta]
 
 ```
 """
-function get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC
+function get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true, return_t_u::Bool=false) where T <: CC
   all_betas = downward_close_ccs(betas)
   res = Dict{CC, Any}()
 
@@ -185,5 +246,5 @@ function get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_b
     res[b] = tmp
   end
 
-  return res
+  return return_t_u ? (res, t, u) : res
 end

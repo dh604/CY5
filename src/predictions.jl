@@ -22,8 +22,7 @@ Return the conjectural prediction of $\Omega_\beta$ for the space with GKM graph
     of [implemented spaces](spaces.md).
 
 ## Example
-Let us get the predicted $\Omega_\beta$ for $Z=\mathcal{A}_2\times \mathbb{C}^2$, continuing the example
-$Z=\mathcal{A}_2\times \mathbb{C}^2$ from [`get_Omega_beta`](@ref).
+Let us get the predicted $\Omega_\beta$ for $Z=\mathcal{A}_2\times \mathbb{C}^3$, continuing the example from [`get_Omega_beta`](@ref).
 
 ```jldoctest pipeline_example_2
 julia> G = Ar_times_C3(2);

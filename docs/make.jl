@@ -20,9 +20,12 @@ makedocs(
             "The package CY5.jl"    => "cy5_overview.md",
             "Pipeline"   => "pipeline.md",
             "Spaces" => "spaces.md",
-            "Example"   => "example.md",
-            "Conjectures" => [
-                "Overview of Conjectures" => "conj/overview.md",
+            "Examples"   => [
+                    "Julia code in the paper" => "code_from_paper.md",
+                    "Details of the Pipeline" => "example.md"
+                ],
+            "Evidence" => [
+                "Overview" => "conj/overview.md",
                 "Conjecture 4.2" => "conj/Conj_4_2.md",
                 "Section 4.3" => "conj/Conj_4_3.md",
                 "Conjecture 5.1" => "conj/Conj_5_1.md",
@@ -41,5 +44,5 @@ makedocs(
         ],
         "References" => "references.md"
     ];
-    doctest=false
+    doctest=true
 )

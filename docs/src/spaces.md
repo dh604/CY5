@@ -1,7 +1,7 @@
 # Spaces
 
 On this page, we list the implemented spaces and constructor functions that are compatible with the [Pipeline](pipeline.md).
-This means that they can be used in comjunction with [`get_Omega_prediction`](@ref) and hence with [`get_Omega_beta`](@ref) and its optional argument `check_predictions=true`.
+This means that they can be used in conjunction with [`get_Omega_prediction`](@ref) and hence with [`get_Omega_beta`](@ref) and its optional argument `check_predictions=true`.
 
 !!! note
     Only those functions that return a 5-dimensional result are compatible with the [Pipeline](pipeline.md).

@@ -11,11 +11,3 @@ get_Omega_beta(G, [b, 2*b], 3; check_predictions=true)
 
 get_Omega_beta(G, [b], 5; check_predictions=true)
 # All predictions hold.
-
-################# HAVE THE FOLLOWING FINISHED ? #################
-#
-#       (part of the pushing_limits_3/ batch)
-#
-#################################################################
-
-get_Omega_beta(G, [4*b], 3; check_predictions=true)

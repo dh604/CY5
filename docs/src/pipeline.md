@@ -48,9 +48,25 @@ Our pipeline has the following structure.
 Steps 1. and 2. are implemented as one function for each family of spaces that we check in the paper (see [Spaces](spaces.md)).
 Steps 3.-5. are implemented in the function [`get_Omega_beta`](@ref) below.
 
-A more detailed example of how the pipeline works can be found [here](example.md).
+### The main function
+
+The following function is the main function used in our numerical experiments to confirm conjectural values of $\Omega_\beta$ up to a certain genus.
 
 ```@docs
 get_Omega_beta
+```
+
+### Most important helper functions
+
+The two most important helper functions used by [`get_Omega_beta`](@ref) are:
+
+- [`get_GW_beta`](@ref): uses [GKMtools.jl](https://mgemath.github.io/GKMtools.jl/) to compute individual Gromov-Witten invariants and packages them in a truncated generating series.
+- [`get_Omega_prediction`](@ref): provides the conjectured values of $\Omega_\beta$ for comparison to the actual values computed from Gromov-Witten invariants.
+
+```@docs
+get_GW_beta
 get_Omega_prediction
 ```
+
+### More details
+A more detailed example of the pipeline in action can be found on the page [Details of the Pipeline](example.md).

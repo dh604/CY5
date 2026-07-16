@@ -1,15 +1,9 @@
-# Overview of Conjectures
+# Overview
 
-In this section, we present for each conjecture and family of examples in [main_paper](@cite) the list of cases that we verified.
+In this section, we provide code to reproduce the results cited as *Evidence* in [main_paper](@cite).
 
-!!! note
-    TODO: update table when contents are done to reflect structure of the paper.
-
-!!! note
-    TODO: improve/elaborate/fill in `P3_m2_m2.jl` (as Section 7.3), `mixed_3d_strip.jl` (in Conjecture 4.2) and `free_P1_chain.jl` (as Section 4.3).
-    Also fill in Conjecture 5.1 and expand material in Sections 7 and 8.
-
-Currently, all cases are checked for some small curve classes in genus $g\le 2$.
+!!! warning
+    **TODO:** Restructure this section when the paper is ready enough.
 
 | Section  | Space | Main function |
 | ----------- | ----------- | --- |
@@ -23,3 +17,12 @@ Currently, all cases are checked for some small curve classes in genus $g\le 2$.
 | [Section 7.4](@ref) | $\text{Tot}(\mathcal{O}_{\mathbb{P}^3}(-1)\oplus\mathcal{O}_{\mathbb{P}^3}(-3))$  | [`gkm_5d_P3_13`](@ref) |
 | [Section 7.5](@ref) | $\text{Tot}(\mathcal{O}_{\mathbb{P}^3}(0)\oplus\mathcal{O}_{\mathbb{P}^3}(-4))$  | [`gkm_5d_P3_04`](@ref) |
 | [Conjecture 8.1](@ref) | $\mathbb{C}\times\left(\text{Tot}\,\mathcal{O}_S(-D_1)\oplus \mathcal{O}_S(-D_1)\right)$  | [`CY5_from_CY4`](@ref) |
+
+
+!!! note
+    Note that we executed most of the code listed in this section on a compute cluster provided by the Mathematics Department of ETH Zürich with the following metrics.
+    - **Operating System:** Fedora
+    - **CPU:** 2x Intel Xeon Gold 6254 (18 Cores) 3.1 GHz
+    - **RAM:** 512 GB
+
+    Therefore, it may be hard to reproduce some of our examples on an ordinary laptop.
