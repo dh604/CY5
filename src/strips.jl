@@ -275,6 +275,36 @@ function minus_one_minus_one_chain(r::Int64)
   return gkm_5d_strip(uad; equiCY = true)
 end
 
+@doc raw"""
+    minus_one_minus_one_chain_3d(r::Int64) -> GKMtools.AbstractGKM_graph
+
+Return a chain of $\mathcal{O}(-1)\oplus\mathcal{O}(-1)$ bundles of length $r$.
+The result is Calabi-Yau but not equivariantly Calabi--Yau and coincides with the output of
+[`gkm_3d_strip`](@ref) with `ups_and_downs = [-1, 1, -1, ...]`.
+
+# Example
+Let us produce the chain of length 2.
+```jldoctest
+julia> CY5.minus_one_minus_one_chain_3d(2)
+GKM graph with 3 nodes, valency 3 and axial function:
+2 -> 1 => (1, -1, 0)
+3 -> 2 => (1, -1, -1)
+Standalone flags:
+1.2 => (0, 0, 1)
+1.3 => (1, 0, 0)
+2.3 => (0, 1, 0)
+3.2 => (-1, 2, 1)
+3.3 => (0, 0, 1)
+```
+"""
+function minus_one_minus_one_chain_3d(r::Int64)
+  uad = ones(Int64, r+1)
+  for i in 1:length(uad)
+    uad[i] *= (-1)^i
+  end
+  return gkm_3d_strip(uad; equiCY = false)
+end
+
 function gkm_Ar(r::Int64)
   G = empty_gkm_graph(r+1, 2, ["$i" for i in 1:r+1])
   g1, g2 = gens(G.M)

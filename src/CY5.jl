@@ -30,6 +30,7 @@ export gkm_5d_strip_prediction
 export Ar_times_C1
 export Ar_times_C3
 export minus_one_minus_one_chain
+export minus_one_minus_one_chain_3d
 export X_times_Ar
 export gkm_3d_closed_vertex
 export gkm_5d_closed_vertex

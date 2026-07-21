@@ -25,4 +25,4 @@ In this section, we provide code to reproduce the results cited as *Evidence* in
     - **CPU:** 2x Intel Xeon Gold 6254 (18 Cores) 3.1 GHz
     - **RAM:** 512 GB
 
-    Therefore, it may be hard to reproduce some of our examples on an ordinary laptop.
+    Therefore, it may be hard to reproduce some of our examples on an ordinary PC.

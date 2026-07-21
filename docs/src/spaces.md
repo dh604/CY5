@@ -13,6 +13,7 @@ Ar_times_C1
 Ar_times_C3
 gkm_3d_strip
 gkm_5d_strip
+minus_one_minus_one_chain_3d
 minus_one_minus_one_chain
 ```
 
