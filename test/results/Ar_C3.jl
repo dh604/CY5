@@ -31,14 +31,4 @@ get_Omega_beta(G, [2*b+c+d], max_genus; check_predictions=true)
 get_Omega_beta(G, [b+2*c+d], max_genus; check_predictions=true)
 # All predictions hold.
 
-################# HAVE THE FOLLOWING FINISHED ? #################
-#
-#       (part of the pushing_limits_3/ batch)
-#
-#################################################################
-
-get_Omega_beta(G, [4*b+4*c+4*d, 3*b+3*c+3*d], max_genus; check_predictions=true)
-
-get_Omega_beta(G, [4*b+2*c+4*d], max_genus; check_predictions=true)
-
-get_Omega_beta(G, [4*b+4*c+2*d], max_genus; check_predictions=true)
+################# WAITING FOR MORE #################

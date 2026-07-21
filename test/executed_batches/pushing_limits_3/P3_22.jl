@@ -4,6 +4,5 @@ using Oscar, GKMtools, CY5
 G = gkm_5d_P3_22()
 b = curve_class(G, Edge(1, 2))
 
-# Has this finished?
-
-get_Omega_beta(G, [4*b], 3; check_predictions=true) # it would crash as we don't have the predicted data for degree 4. So no need to run it.
+get_Omega_beta(G, [4*b], 3; check_predictions=true)
+# it crashed as we don't have the predicted data for degree 4.

@@ -25,7 +25,7 @@ max_genus = 3
 
 # get_Omega_beta(G, [b+2*c+d], max_genus; check_predictions=true)
 
-# Have the following finished?
+# Process got killed.
 
 get_Omega_beta(G, [4*b+4*c+4*d, 3*b+3*c+3*d], max_genus; check_predictions=true)
 

@@ -46,10 +46,5 @@ get_Omega_beta(G, [(H + b + c)], 3; check_predictions=true)
 get_Omega_beta(G, [H + b + 2*c], 3; check_predictions=true)
 # Get zero up to genus 3.
 
-get_Omega_beta(G, [2*H + 4*c], 2; check_predictions=true)
-
-################# HAS THE LAST ONE FINISHED IN g=3 ? #################
-#
-#       (part of the pushing_limits_3/ batch)
-#
-#################################################################
+get_Omega_beta(G, [2*H + 4*c], 3; check_predictions=true)
+# Get zero up to genus 3.
