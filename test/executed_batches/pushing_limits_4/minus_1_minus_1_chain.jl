@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 r = 3
 G = minus_one_minus_one_chain(r)

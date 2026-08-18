@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 # Test conjecture for X_{N,m} x A_r with N=1, m=0
 

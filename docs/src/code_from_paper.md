@@ -18,7 +18,7 @@ gkm_graph_of_example_1_1
 In [main_paper; Example 1.2](@cite), we compute the Gromov-Witten of $Z$ in degrees $1,2,3$ and genus $0$ and $1$ using the following code.
 
 ```jldoctest Example_from_paper
-julia> using Oscar, GKMtools, CY5
+julia> using Oscar, GKMtools, GW_CY5
 
 julia> G = gkm_graph_of_example_1_1();
 

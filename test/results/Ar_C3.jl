@@ -1,6 +1,6 @@
 # File to test A_r x C^3.
 
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 r = 3
 G = Ar_times_C3(r)

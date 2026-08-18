@@ -2,7 +2,7 @@
 
 ```@meta
 DocTestSetup = quote
-    using Oscar, GKMtools, CY5
+    using Oscar, GKMtools, GW_CY5
 end
 ```
 
@@ -13,7 +13,7 @@ We will therefore focus on the internal features that make these functions work.
 Throughout, we assume that the user has already loaded all required packages using the following line.
 
 ```julia-repl
-julia> using Oscar, GKMtools, CY5
+julia> using Oscar, GKMtools, GW_CY5
 ```
 
 ## Loading the space
@@ -80,14 +80,14 @@ julia> get_attribute(G, :example_type)
 ```
 
 This tells the function that our space $G$ is of the type _strip geometry_.
-It then calls the *internal* function `CY5.gkm_5d_strip_prediction` which produces the specific
+It then calls the *internal* function `GW_CY5.gkm_5d_strip_prediction` which produces the specific
 expression of $\Omega_\beta$ that is conjectured to hold for strip geometries:
 
 ```jldoctest pipeline_big_example
-julia> CY5.gkm_5d_strip_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus)
+julia> GW_CY5.gkm_5d_strip_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus)
 (-1//12*t3^2*t4*u^2 - 1//12*t3^2*t5*u^2 - 1//12*t3*t4^2*u^2 - 1//4*t3*t4*t5*u^2 - 1//12*t3*t5^2*u^2 - t3 - 1//12*t4^2*t5*u^2 - 1//12*t4*t5^2*u^2 - t4 - t5)//(t3*t4*t5*u^2)
 
-julia> CY5.gkm_5d_strip_prediction(G, [t1, t2, t3, t4, t5], u, 2*beta, max_genus)
+julia> GW_CY5.gkm_5d_strip_prediction(G, [t1, t2, t3, t4, t5], u, 2*beta, max_genus)
 0
 ```
 
@@ -103,7 +103,7 @@ For these examples, we saved the resulting expressions in the folder `test/omega
 These expressions are then loaded into Julia by the internal predictor function of the example in question.
 
 For example, the internal prediction function for the space $\text{Tot}_\mathbb{P}^2(\mathcal{O}(-1)\oplus\mathcal{O}(-1)\oplus\mathcal{O}(-1))$ given by
-[`gkm_5d_P2_111`](@ref) is `CY5.gkm_5d_P2_111_prediction`.
+[`gkm_5d_P2_111`](@ref) is `GW_CY5.gkm_5d_P2_111_prediction`.
 It reads the files `test/omega_data/Omega_P2_111_num.dat` and `test/omega_data/Omega_P2_111_den.dat` to produce the following output in degree one and genus up to 2.
 
 ```jldoctest pipeline_big_example
@@ -114,7 +114,7 @@ julia> get_attribute(Tot_P2_111, :example_type)
 
 julia> b = curve_class(Tot_P2_111, Edge(1, 2));
 
-julia> CY5.gkm_5d_P2_111_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2)
+julia> GW_CY5.gkm_5d_P2_111_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2)
 1//32*t1^2*u^2 - 1//32*t1*t2*u^2 - 1//32*t1*t3*u^2 + 1//32*t2^2*u^2 - 1//32*t2*t3*u^2 + 1//32*t3^2*u^2 - 1//8
 ```
 
@@ -174,11 +174,11 @@ If we want to compute $\Omega_\beta$ for all $\beta$ in some set $S$ of curve cl
 recursion requires us to compute $\Omega_\beta$ and $\sum_{g=0}^{\text{gMax}} u^{2g-2}GW_{g,\beta}(X,T)$
 for all $\beta$ that have some positive integer multiple in $S$.
 
-The internal function `CY5.downward_close_cc` takes a list $S$ of curve classes and returns all curve classes with some
+The internal function `GW_CY5.downward_close_cc` takes a list $S$ of curve classes and returns all curve classes with some
 positive integer multiple contained in $S$:
 
 ```jldoctest pipeline_big_example
-julia> CY5.downward_close_ccs([6*beta, 10*beta])
+julia> GW_CY5.downward_close_ccs([6*beta, 10*beta])
 6-element Vector{AbstractAlgebra.Generic.FreeModuleElem{ZZRingElem}}:
  (6, 0)
  (3, 0)
@@ -190,14 +190,14 @@ julia> CY5.downward_close_ccs([6*beta, 10*beta])
 
 Indeed, for $S=\{6\beta, 10\beta\}$, the set of curve classes with positive integer multiple in $S$ is
 $\{\beta, 2\beta, 3\beta, 5\beta, 6\beta, 10\beta\}$.
-The function [`get_Omega_beta`](@ref) calls [`get_GW_beta`](@ref), which in turn uses `CY5.downward_close_cc`
+The function [`get_Omega_beta`](@ref) calls [`get_GW_beta`](@ref), which in turn uses `GW_CY5.downward_close_cc`
 to determine all relevant curve classes.
 
 ### Solving the recursion for $\Omega_\beta$
 
 Once [`get_GW_beta`](@ref) returned the truncated Gromov-Witten series in all relevant curve classes,
 [`get_Omega_beta`](@ref) proceeds by computing $\Omega_{\beta}$ using the above equation.
-This is done using the internal function `CY5.cc_mobius`.
+This is done using the internal function `GW_CY5.cc_mobius`.
 First it sorts the curve classes so that for any integer $k>1$, the curve class $k\beta$ is considered after $\beta$.
 Second, it computes $\Omega_\beta$ in the given order.
 This ensures that when $\Omega_\beta$ is computed, all relevant $\Omega_{\beta/k}$ have already been computed before.
@@ -214,10 +214,10 @@ julia> GW[2*beta]
 (1//24*t2^2*t4*u^2 + 1//24*t2^2*t5*u^2 + 1//24*t2*t4^2*u^2 + 1//24*t2*t4*t5*u^2 + 1//24*t2*t5^2*u^2 - 1//8*t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
 ```
 
-Let us see how the internal function `CY5.cc_mobius` turns this into $\Omega_\beta$.
+Let us see how the internal function `GW_CY5.cc_mobius` turns this into $\Omega_\beta$.
 
 ```jldoctest pipeline_big_example
-julia> Omega_from_cc_mobius = CY5.cc_mobius(GW);
+julia> Omega_from_cc_mobius = GW_CY5.cc_mobius(GW);
 
 julia> Omega_from_cc_mobius[beta]
 (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)

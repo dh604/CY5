@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 # Test conjecture for a O(-1)+O(-1) chain of length s x A_r
 

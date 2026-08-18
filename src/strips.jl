@@ -126,7 +126,7 @@ has weights $\epsilon_4, \epsilon_5$.
     Calabi-Yau.
 
 # Example
-Let us produce the example of [`gmk_3d_strip`](@ref) times $\mathbb{C}^2$.
+Let us produce the example of [`gkm_3d_strip`](@ref) times $\mathbb{C}^2$.
 ```jldoctest
 julia> G = gkm_5d_strip([1, -1, 1])
 GKM graph with 3 nodes, valency 5 and axial function:
@@ -285,7 +285,7 @@ The result is Calabi-Yau but not equivariantly Calabi--Yau and coincides with th
 # Example
 Let us produce the chain of length 2.
 ```jldoctest
-julia> CY5.minus_one_minus_one_chain_3d(2)
+julia> GW_CY5.minus_one_minus_one_chain_3d(2)
 GKM graph with 3 nodes, valency 3 and axial function:
 2 -> 1 => (1, -1, 0)
 3 -> 2 => (1, -1, -1)
