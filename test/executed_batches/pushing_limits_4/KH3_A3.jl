@@ -68,9 +68,13 @@ get_Omega_beta(G, [2*H2 + b + c], 3; check_predictions=true)
 # All predictions hold.
 
 get_Omega_beta(G, [3*H2 + b + c], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H2 + 2*b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*H2 + 2*b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H2 + 2*c], 3; check_predictions=true)
+# All predictions hold.

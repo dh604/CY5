@@ -37,3 +37,4 @@ get_Omega_beta(G, [B+b+c+d, 2*B+b+c+d, 2*(B+b+c)], 3; check_predictions=true)
 
 # Added later, still running:
 get_Omega_beta(G, [3*(B+b+c)], 3; check_predictions=true)
+# Killed.

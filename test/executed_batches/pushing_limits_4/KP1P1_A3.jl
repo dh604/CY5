@@ -24,20 +24,28 @@ get_Omega_beta(G, [2*H1 + 4*c], 3; check_predictions=true)
 # All predictions hold.
 
 get_Omega_beta(G, [2*(H1+b)], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*H1+b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [3*H1+b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H1+2*b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [(H1 + b + c)], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H1 + b + 2*c], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*H1+H2+b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*H1+2*H2+b], 3; check_predictions=true)
+# Prediction fails.
 
 get_Omega_beta(G, [2*H1 + 2*H2 + 2*b], 3; check_predictions=true)
 
