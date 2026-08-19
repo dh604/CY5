@@ -1,7 +1,7 @@
 using Test
 using Oscar
 using GKMtools
-using CY5
+using GW_CY5
 
 println("== gauge_prediction_2 debug ==")
 println("This script only tests code in src/gauge_prediction_2.jl.")
@@ -20,48 +20,48 @@ function _debug_has_odd_u_power(expr, u)
 end
 
 @testset "Internal helper sanity" begin
-  @test CY5._gp2_part_transpose(Int[]) == Int[]
-  @test CY5._gp2_part_transpose([3, 1]) == [2, 1, 1]
-  @test CY5._gp2_part_size([3, 1]) == 4
-  @test CY5._gp2_part_quad([3, 1]) == 10
-  @test CY5._gp2_partitions(0) == [Int[]]
-  @test sort(CY5._gp2_partitions(3)) == sort([[3], [2, 1], [1, 1, 1]])
-  @test CY5._gp2_mobius(1) == 1
-  @test CY5._gp2_mobius(2) == -1
-  @test CY5._gp2_mobius(4) == 0
-  @test CY5._gp2_mobius(6) == 1
+  @test GW_CY5._gp2_part_transpose(Int[]) == Int[]
+  @test GW_CY5._gp2_part_transpose([3, 1]) == [2, 1, 1]
+  @test GW_CY5._gp2_part_size([3, 1]) == 4
+  @test GW_CY5._gp2_part_quad([3, 1]) == 10
+  @test GW_CY5._gp2_partitions(0) == [Int[]]
+  @test sort(GW_CY5._gp2_partitions(3)) == sort([[3], [2, 1], [1, 1, 1]])
+  @test GW_CY5._gp2_mobius(1) == 1
+  @test GW_CY5._gp2_mobius(2) == -1
+  @test GW_CY5._gp2_mobius(4) == 0
+  @test GW_CY5._gp2_mobius(6) == 1
 end
 
 @testset "Elementary q-side factors" begin
   S, (rho4, rho5) = polynomial_ring(QQ, ["rho4", "rho5"])
   K = fraction_field(S)
 
-  @test CY5._gp2_tildeZ(Int[], (2, 0), (0, -2), rho4, rho5, K) == K(1)
-  @test CY5._gp2_tildeZ([1], (2, 0), (0, -2), rho4, rho5, K) == K(1) // (K(1) - K(rho4)^2)
+  @test GW_CY5._gp2_tildeZ(Int[], (2, 0), (0, -2), rho4, rho5, K) == K(1)
+  @test GW_CY5._gp2_tildeZ([1], (2, 0), (0, -2), rho4, rho5, K) == K(1) // (K(1) - K(rho4)^2)
 
-  r0 = CY5._gp2_R_coeffs(Int[], Int[], 0, rho4, rho5, K)
+  r0 = GW_CY5._gp2_R_coeffs(Int[], Int[], 0, rho4, rho5, K)
   @test length(r0) == 1
   @test r0[1] == K(1)
 
-  r1 = CY5._gp2_R_coeffs([1], Int[], 1, rho4, rho5, K)
+  r1 = GW_CY5._gp2_R_coeffs([1], Int[], 1, rho4, rho5, K)
   @test length(r1) == 2
   @test r1[1] == K(1)
 end
 
 @testset "Gauge generator and preimage checks" begin
   G = gkm_5d_gauge(3, 2; equiCY=true)
-  Qs, Qts = CY5._gp2_gauge_generators(G, 3)
+  Qs, Qts = GW_CY5._gp2_gauge_generators(G, 3)
 
   @test length(Qs) == 3
   @test length(Qts) == 2
   @test Qs[1] == curve_class(G, "v1", "w1")
   @test Qts[1] == curve_class(G, "v1", "v2")
 
-  dmax, emax = CY5._gp2_preimage_bounds(Qs, Qts, Qs[3])
+  dmax, emax = GW_CY5._gp2_preimage_bounds(Qs, Qts, Qs[3])
   @test dmax == (0, 0, 1)
   @test emax == (0, 0)
 
-  dmax2, emax2 = CY5._gp2_preimage_bounds(Qs, Qts, Qs[1])
+  dmax2, emax2 = GW_CY5._gp2_preimage_bounds(Qs, Qts, Qs[1])
   @test dmax2[1] >= 1
   @test sum(dmax2) + sum(emax2) > 0
 end
@@ -73,7 +73,7 @@ end
   S, (rho4, rho5) = polynomial_ring(QQ, ["rho4", "rho5"])
   K = fraction_field(S)
 
-  z_q3 = CY5._gp2_build_Z_h2(G, Q[3], 3, 2, rho4, rho5, K; use_formula_as_written=true)
+  z_q3 = GW_CY5._gp2_build_Z_h2(G, Q[3], 3, 2, rho4, rho5, K; use_formula_as_written=true)
   zero_key = ntuple(_ -> 0, rank(parent(Q[3])))
   z0 = get(z_q3, zero_key, K(0))
 
@@ -83,19 +83,19 @@ end
   @test z0 == K(1)
 
   s_qt = try
-    CY5.omega_beta_gauge_2(G, Qt[1], 2)
+    GW_CY5.omega_beta_gauge_2(G, Qt[1], 2)
   catch err
     println("omega_beta_gauge_2(Qt[1]) threw: ", sprint(showerror, err))
     nothing
   end
   s_q3 = try
-    CY5.omega_beta_gauge_2(G, Q[3], 2)
+    GW_CY5.omega_beta_gauge_2(G, Q[3], 2)
   catch err
     println("omega_beta_gauge_2(Q[3]) threw: ", sprint(showerror, err))
     nothing
   end
   s_q1 = try
-    CY5.omega_beta_gauge_2(G, Q[1], 1)
+    GW_CY5.omega_beta_gauge_2(G, Q[1], 1)
   catch err
     println("omega_beta_gauge_2(Q[1]) threw: ", sprint(showerror, err))
     nothing
@@ -119,23 +119,23 @@ end
   R, (t1, t2, t3, t4, t5, u) = polynomial_ring(QQ, ["t1", "t2", "t3", "t4", "t5", "u"])
 
   raw = try
-    CY5.omega_beta_gauge_2(G, Q[3], 2)
+    GW_CY5.omega_beta_gauge_2(G, Q[3], 2)
   catch
     nothing
   end
   wrapped = try
-    CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Q[3], 2)
+    GW_CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Q[3], 2)
   catch err
     println("gkm_5d_gauge_prediction_2(Q[3]) threw: ", sprint(showerror, err))
     nothing
   end
 
   if raw !== nothing && wrapped !== nothing
-    converted = CY5._gp2_series_to_user_ring(raw, [t1, t2, t3, t4, t5], u)
+    converted = GW_CY5._gp2_series_to_user_ring(raw, [t1, t2, t3, t4, t5], u)
     @test wrapped == converted
 
-    wrapped_qt1 = CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Qt[1], 2)
-    wrapped_q1 = CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Q[1], 1)
+    wrapped_qt1 = GW_CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Qt[1], 2)
+    wrapped_q1 = GW_CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, Q[1], 1)
     odd_q1 = _debug_has_odd_u_power(wrapped_q1, u)
 
     expected_q3 = (QQ(1)
@@ -178,7 +178,7 @@ end
 
   for (label, G, beta, gmax) in cases
     pred = try
-      CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, beta, gmax)
+      GW_CY5.gkm_5d_gauge_prediction_2(G, [t1, t2, t3, t4, t5], u, beta, gmax)
     catch err
       println()
       println(label, " threw: ", sprint(showerror, err))

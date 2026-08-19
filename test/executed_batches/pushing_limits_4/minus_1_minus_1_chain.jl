@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 r = 3
 G = minus_one_minus_one_chain(r)
@@ -15,5 +15,6 @@ get_Omega_beta(G, [3*b+3*c+3*d], max_genus; check_predictions=true)
 # All predictions hold.
 
 get_Omega_beta(G, [4*b+2*c+4*d], max_genus; check_predictions=true)
+# Killed to prioritize other examples.
 
 get_Omega_beta(G, [4*b+4*c+2*d], max_genus; check_predictions=true)

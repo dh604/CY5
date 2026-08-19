@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 G = gkm_5d_p1_chain([[0, 0, -2, 0, 2], [0, 0, 2, 0, -2]]; equiCY=true)
 b1 = curve_class(G, Edge(1, 2))

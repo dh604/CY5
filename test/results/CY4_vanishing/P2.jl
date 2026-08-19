@@ -1,6 +1,6 @@
 # Test GW vanishing for (O(-1)+O(-2) on P^2) x C^1
 
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 CY4 = total_space(vector_bundle_O(2, [-1, -2]))
 G = CY5_from_CY4(CY4; equiCY=true)

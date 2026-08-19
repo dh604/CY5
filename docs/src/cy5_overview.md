@@ -1,4 +1,4 @@
-# CY5.jl
+# GW_CY5.jl
 
 _A Julia package to compute the membrane indices_ $\Omega_\beta$ _of toric CY5s._
 
@@ -21,8 +21,8 @@ We build on the Julia package [GKMtools.jl](https://mgemath.github.io/GKMtools.j
 ## Installation
 
 First, install **OSCAR** using the instructions [here](https://www.oscar-system.org/install/).
-After that, open Julia and install **CY5.jl** by typing the following code.
-This will automatically install the package **GKMtools.jl** on which CY5.jl builds.
+After that, open Julia and install **GW_CY5.jl** by typing the following code.
+This will automatically install the package **GKMtools.jl** on which GW_CY5.jl builds.
 
 ```julia-repl
 julia> using Pkg;
@@ -32,5 +32,5 @@ julia> Pkg.add(url="https://github.com/dh604/CY5")
 You can now load the package by typing the following line.
 
 ```julia-repl
-julia> using Oscar, GKMtools, CY5
+julia> using Oscar, GKMtools, GW_CY5
 ```

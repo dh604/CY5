@@ -1,6 +1,6 @@
 # Test GW vanishing for (O(-1,-1)+O(-1,-1) on P1xP1) x C
 
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 P1_P1 = hirzebruch_surface(NormalToricVariety, 0)
 P = picard_group(P1_P1)

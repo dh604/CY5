@@ -1,6 +1,6 @@
 # Test conjecture for Tot(K_{Hirzebruch_3}) x A_r
 
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 r = 3
 
@@ -68,9 +68,13 @@ get_Omega_beta(G, [2*H2 + b + c], 3; check_predictions=true)
 # All predictions hold.
 
 get_Omega_beta(G, [3*H2 + b + c], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H2 + 2*b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*H2 + 2*b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [H2 + 2*c], 3; check_predictions=true)
+# All predictions hold.

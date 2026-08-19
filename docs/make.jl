@@ -1,7 +1,7 @@
-using Documenter, CY5
+using Documenter, GW_CY5
 using DocumenterCitations
 
-DocMeta.setdocmeta!(CY5, :DocTestSetup, :(using Oscar, GKMtools, CY5); recursive=true)
+DocMeta.setdocmeta!(GW_CY5, :DocTestSetup, :(using Oscar, GKMtools, GW_CY5); recursive=true)
 
 bib = CitationBibliography(
     joinpath(@__DIR__, "src", "refs.bib");
@@ -10,14 +10,14 @@ bib = CitationBibliography(
 
 makedocs(
     sitename = "Membranes, Maps and Sheaves",
-    modules  = [CY5],
+    modules  = [GW_CY5],
     plugins  = [bib],
     warnonly = true,
     format   = Documenter.HTML(mathengine = MathJax3()),
     pages    = [
         "Home"       => "index.md",
         "Gromov-Witten computations" => [
-            "The package CY5.jl"    => "cy5_overview.md",
+            "The package GW_CY5.jl" => "cy5_overview.md",
             "Pipeline"   => "pipeline.md",
             "Spaces" => "spaces.md",
             "Examples"   => [

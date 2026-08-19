@@ -1,6 +1,6 @@
 # Old first tests for O(-1)+O(-1)+O(-1) on P2.
 
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 G = total_space(vector_bundle_O(2, [-1, -1, -1]))
 M = G.M

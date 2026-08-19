@@ -1,4 +1,4 @@
-module CY5
+module GW_CY5
 
 using Oscar, GKMtools
 

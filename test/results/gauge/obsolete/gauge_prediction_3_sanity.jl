@@ -1,7 +1,7 @@
 using Test
 using Oscar
 using GKMtools
-using CY5
+using GW_CY5
 
 # ==============================================================================
 # Sanity check for the gauge prediction in src/gauge_prediction_3.jl.
@@ -61,7 +61,7 @@ end
     gMaxes = N <= 3 ? (1:2) : (2:2)
 
     for beta in betas, gMax in gMaxes
-      pred = CY5.gkm_5d_gauge_prediction_3(G, t, u, beta, gMax)
+      pred = GW_CY5.gkm_5d_gauge_prediction_3(G, t, u, beta, gMax)
       exps = _gp3_u_exponents(pred)
       bad = filter(e -> isodd(e) || e < -2, exps)
       isempty(bad) || push!(violations, (N, m, beta, gMax, bad))

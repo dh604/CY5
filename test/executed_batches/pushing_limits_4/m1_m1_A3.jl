@@ -1,4 +1,4 @@
-using Oscar, GKMtools, CY5
+using Oscar, GKMtools, GW_CY5
 
 # Test conjecture for a O(-1)+O(-1) chain of length s x A_r
 
@@ -19,15 +19,22 @@ C = curve_class(G, "2,1", "3,1")
 
 
 get_Omega_beta(G, [4*B, 2*(B+C), 3*b], 3; check_predictions=true)
+# Prediction holds for 3*b, 4*B, 2*B, 2*(B+C), fails for B, B+C, b.
 
 get_Omega_beta(G, [B + b, 2*B + b, 3*B + b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [B+C + b, 2*B + C + b, 3*B+C + b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*B + 2*C + b, 3*B+2*C + b], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [B + b+c, 2*B + b+c, 3*B + b+c], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [B+C + b+c, 2*B+C + b+c, 3*B+C + b+c], 3; check_predictions=true)
+# All predictions hold.
 
 get_Omega_beta(G, [B+C + 2*b, 2*B+C + 2*b, 3*B+C + 2*b], 3; check_predictions=true)
+# All predictions hold.

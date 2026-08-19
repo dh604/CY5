@@ -1,6 +1,6 @@
-using CY5
+using GW_CY5
 using Test
 
-@testset "CY5.jl" begin
+@testset "GW_CY5.jl" begin
     # Write your tests here.
 end
