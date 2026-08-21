@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Gauge theory (Evidence 3.5) · Membranes, Maps and Sheaves</title><meta name="title" content="Gauge theory (Evidence 3.5) · Membranes, Maps and Sheaves"/><meta property="og:title" content="Gauge theory (Evidence 3.5) · Membranes, Maps and Sheaves"/><meta property="twitter:title" content="Gauge theory (Evidence 3.5) · Membranes, Maps and Sheaves"/><meta name="description" content="Documentation for Membranes, Maps and Sheaves."/><meta property="og:description" content="Documentation for Membranes, Maps and Sheaves."/><meta property="twitter:description" content="Documentation for Membranes, Maps and Sheaves."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/documentercitations/citations-hover.css" rel="stylesheet" type="text/css"/><link href="../../assets/documentercitations/citations.css" rel="stylesheet" type="text/css"/><script src="../../assets/documentercitations/citations-data.js"></script><script src="../../assets/documentercitations/citations-hover.js"></script><script src="../../assets/documentercitations/citations-backlinks.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.svg" alt="Membranes, Maps and Sheaves logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Membranes, Maps and Sheaves</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Gromov-Witten computations</span><ul><li><a class="tocitem" href="../../cy5_overview/">The package <code>GW_CY5.jl</code></a></li><li><a class="tocitem" href="../../pipeline/">Pipeline</a></li><li><a class="tocitem" href="../../spaces/">Spaces</a></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../code_from_paper/">Julia code in the paper</a></li><li><a class="tocitem" href="../../example/">Details of the Pipeline</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-5" type="checkbox" checked/><label class="tocitem" for="menuitem-2-5"><span class="docs-label">Evidence</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../overview/">Overview of GW evidence</a></li><li><a class="tocitem" href="../3d_strip_xC2/"><span>$X_{\text{3d-strip}}\times\mathbb{C}^2$</span> (Evidence 2.8)</a></li><li><a class="tocitem" href="../closed_vertex/">Closed vertex (Evidence 2.13)</a></li><li class="is-active"><a class="tocitem" href>Gauge theory (Evidence 3.5)</a><ul class="internal"><li><a class="tocitem" href="#N2,-m-1"><span><span>$N=2, m=-1$</span></span></a></li><li><a class="tocitem" href="#N2,-m0"><span><span>$N=2, m=0$</span></span></a></li><li><a class="tocitem" href="#N2,-m1"><span><span>$N=2, m=1$</span></span></a></li><li><a class="tocitem" href="#N3,-m-2"><span><span>$N=3, m=-2$</span></span></a></li><li><a class="tocitem" href="#N3,-m-1"><span><span>$N=3, m=-1$</span></span></a></li><li><a class="tocitem" href="#N3,-m0"><span><span>$N=3, m=0$</span></span></a></li><li><a class="tocitem" href="#N3,-m1"><span><span>$N=3, m=1$</span></span></a></li><li><a class="tocitem" href="#N3,-m2"><span><span>$N=3, m=2$</span></span></a></li><li><a class="tocitem" href="#Necessity-of-m-N"><span>Necessity of <span>$|m| &lt; N$</span></span></a></li></ul></li><li><a class="tocitem" href="../P2_111/">Local <span>$\mathbb{P}^2$</span> (Evidence 4.2)</a></li><li><a class="tocitem" href="../P3_a_4a/">Local <span>$\mathbb{P}^3$</span> (Evidence 4.8)</a></li><li><a class="tocitem" href="../cy5_from_cy4/">Local <span>$\mathbb{P}^2$</span>, <span>$\mathbb{P}^1\times\mathbb{P}^1$</span> (Evidence 5.5)</a></li></ul></li></ul></li><li><span class="tocitem">Pandharipande-Thomas computations</span><ul><li><a class="tocitem" href="../../pt/pt_cy5_overview/">Overview</a></li><li><a class="tocitem" href="../../pt/pt_example/">Example</a></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Evidence</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../pt/pt_conj/overview/">Overview of PT evidence</a></li><li><a class="tocitem" href="../../pt/pt_conj/closed_vertex/">Closed vertex (Evidence 2.12)</a></li><li><a class="tocitem" href="../../pt/pt_conj/local_P2/">Local <span>$\mathbb{P}^2$</span> (Evidence 4.4 &amp; 5.7)</a></li><li><a class="tocitem" href="../../pt/pt_conj/local_P3/">Local <span>$\mathbb{P}^3$</span> (Evidence 4.9)</a></li><li><a class="tocitem" href="../../pt/pt_conj/local_P1xP1/">Local <span>$\mathbb{P}^1 \times \mathbb{P}^1$</span> (Evidence 5.7)</a></li></ul></li></ul></li><li><a class="tocitem" href="../../references/">References</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Gromov-Witten computations</a></li><li><a class="is-disabled">Evidence</a></li><li class="is-active"><a href>Gauge theory (Evidence 3.5)</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Gauge theory (Evidence 3.5)</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/dh604/CY5" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/dh604/CY5/blob/main/docs/src/conj/gw_gauge.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Evidence-3.5"><a class="docs-heading-anchor" href="#Evidence-3.5">Evidence 3.5</a><a id="Evidence-3.5-1"></a><a class="docs-heading-anchor-permalink" href="#Evidence-3.5" title="Permalink"></a></h1><p>On this page, we provide Julia code to verify [<a href="../../references/#main_paper" id="main_paper-cite-27">HS26</a>, Conjecture 3.3] concerning the <span>$T$</span>-space <span>$X_{N,m}\times\mathbb{C}^2$</span> obtained from <a href="../../spaces/#GW_CY5.gkm_5d_gauge"><code>gkm_5d_gauge</code></a>. The curve classes <code>F[1],...,F[N-1]</code> and <code>B[1],...,B[N]</code> in the code correspond to <span>$F_1,\dots,F_{N-1}$</span> and <span>$C_1,\dots,C_N$</span> in the paper, respectively, see [<a href="../../references/#main_paper" id="main_paper-cite-28">HS26</a>, Figure 7].</p><p>Under each line calling <a href="../../pipeline/#GW_CY5.get_Omega_beta"><code>get_Omega_beta</code></a>, we recorded the crucial line of the output as a comment.</p><h2 id="N2,-m-1"><a class="docs-heading-anchor" href="#N2,-m-1"><span>$N=2, m=-1$</span></a><a id="N2,-m-1-1"></a><a class="docs-heading-anchor-permalink" href="#N2,-m-1" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 2
+m = -1
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[2], 3*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*B[2]], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N2,-m0"><a class="docs-heading-anchor" href="#N2,-m0"><span>$N=2, m=0$</span></a><a id="N2,-m0-1"></a><a class="docs-heading-anchor-permalink" href="#N2,-m0" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 2
+m = 0
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 3
+
+get_Omega_beta(G, [4*B[1], 3*B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[2], 3*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*B[2] + 2*B[1]], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N2,-m1"><a class="docs-heading-anchor" href="#N2,-m1"><span>$N=2, m=1$</span></a><a id="N2,-m1-1"></a><a class="docs-heading-anchor-permalink" href="#N2,-m1" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 2
+m = 1
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 3
+
+get_Omega_beta(G, [4*B[1], 3*B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[2], 3*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*B[2] + 2*B[1]], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N3,-m-2"><a class="docs-heading-anchor" href="#N3,-m-2"><span>$N=3, m=-2$</span></a><a id="N3,-m-2-1"></a><a class="docs-heading-anchor-permalink" href="#N3,-m-2" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = -2
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*F[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [B[2] + F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [B[2] + F[1] + F[2]], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N3,-m-1"><a class="docs-heading-anchor" href="#N3,-m-1"><span>$N=3, m=-1$</span></a><a id="N3,-m-1-1"></a><a class="docs-heading-anchor-permalink" href="#N3,-m-1" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = -1
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*F[2]], gMax; check_predictions=true)
+# All predicitons hold.</code></pre><h2 id="N3,-m0"><a class="docs-heading-anchor" href="#N3,-m0"><span>$N=3, m=0$</span></a><a id="N3,-m0-1"></a><a class="docs-heading-anchor-permalink" href="#N3,-m0" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = 0
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[2] + 2*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[3], 3*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*F[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*(B[2] + F[1] + F[2])], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N3,-m1"><a class="docs-heading-anchor" href="#N3,-m1"><span>$N=3, m=1$</span></a><a id="N3,-m1-1"></a><a class="docs-heading-anchor-permalink" href="#N3,-m1" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = 1
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[2] + 2*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[3], 3*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*F[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*(B[2] + F[1] + F[2])], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="N3,-m2"><a class="docs-heading-anchor" href="#N3,-m2"><span>$N=3, m=2$</span></a><a id="N3,-m2-1"></a><a class="docs-heading-anchor-permalink" href="#N3,-m2" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = 2
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*B[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [3*F[1], 4*F[1]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[2] + 2*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [4*B[3], 3*B[3]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*F[1] + 2*F[2]], gMax; check_predictions=true)
+# All predictions hold.
+
+get_Omega_beta(G, [2*(B[2] + F[1] + F[2])], gMax; check_predictions=true)
+# All predictions hold.</code></pre><h2 id="Necessity-of-m-N"><a class="docs-heading-anchor" href="#Necessity-of-m-N">Necessity of <span>$|m| &lt; N$</span></a><a id="Necessity-of-m-N-1"></a><a class="docs-heading-anchor-permalink" href="#Necessity-of-m-N" title="Permalink"></a></h2><p>Let <span>$N=3$</span> and <span>$m=4$</span> so that <span>$|m|\ge N$</span>. In this example, all equivariant parameters <code>t1</code>, <code>t3</code>, <code>t4</code>, <code>t5</code> appear in <span>$\Omega_\beta$</span>, which shows that <span>$|m|&lt;N$</span> is in general a necessary assumption for [<a href="../../references/#main_paper" id="main_paper-cite-29">HS26</a>, Conjecture 3.3] to hold. Indeed, for <span>$|m|&lt;N$</span>, the conjectured formula only contains the equivariant parameters <code>t4</code> and <code>t5</code>. (Note that <code>t2</code> does not appear because it is expressed in terms of the other parameters on the equivariantly Calabi-Yau torus.)</p><p>Under each call to <a href="../../pipeline/#GW_CY5.get_Omega_beta"><code>get_Omega_beta</code></a>, we include the output of the computed values for <span>$\Omega_\beta$</span> as a comment, showing the equivariant parameters <code>t1</code>, <code>t3</code>, <code>t4</code>, <code>t5</code>.</p><pre><code class="language-julia hljs">using Oscar, GKMtools, GW_CY5
+
+N = 3
+m = 4
+
+G = gkm_5d_gauge(N, m; equiCY=true)
+F = [curve_class(G, &quot;v$i&quot;, &quot;v$(i+1)&quot;) for i in 1:(N-1)]
+B = [curve_class(G, &quot;v$i&quot;, &quot;w$i&quot;) for i in 1:N]
+
+gMax = 2
+
+get_Omega_beta(G, [B[2]], gMax)
+# Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 1 entry:
+#   (0, 1, 3) =&gt; (1399//1152*t4^4*u^4 + 21//4*t4^3*t5*u^4 + 4661//576*t4^2*t5^2*u^4 + 115//24*t4^2*u^2 + 21//4*t4*t5^3*u^4 + 10*t4*t5*u^2 + 1399//1152*t5^4*u^4 + 115//24*t5^2*u^2 + 5)//(t4*t5*u^2)
+
+get_Omega_beta(G, [3*B[3], 2*B[3]], 2)
+# Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 3 entries:
+#   (0, 2, 0) =&gt; (-13//360*t1^8*t4*u^4 - 13//360*t1^8*t5*u^4 - 91//90*t1^7*t3*t4*u^4 - 91//90*t1^7*t3*t5*u^4 - 14//15*t1^7*t4^2*u^4 - 28//15*t1^7*t4*t5*u^4 - 14//15*t1^7*t5^2*u^4 - 17837//1440*t1^6*t3^2*t4*u^4 - 17837//1…
+#   (0, 1, 0) =&gt; (1//360*t1^5*t4*u^4 + 1//360*t1^5*t5*u^4 + 7//144*t1^4*t3*t4*u^4 + 7//144*t1^4*t3*t5*u^4 + 11//240*t1^4*t4^2*u^4 + 11//120*t1^4*t4*t5*u^4 + 11//240*t1^4*t5^2*u^4 + 41//120*t1^3*t3^2*t4*u^4 + 41//120*t1^3…
+#   (0, 3, 0) =&gt; (3//10*t1^12*t4*u^4 + 3//10*t1^12*t5*u^4 + 63//5*t1^11*t3*t4*u^4 + 63//5*t1^11*t3*t5*u^4 + 34//3*t1^11*t4^2*u^4 + 68//3*t1^11*t4*t5*u^4 + 34//3*t1^11*t5^2*u^4 + 9697//40*t1^10*t3^2*t4*u^4 + 9697//40*t1^1…
+
+get_Omega_beta(G, [3*F[1], 2*F[2], 2*F[2], 2*(F[1]+F[2])], 2)
+# Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 6 entries:
+#   (2, 0, 2) =&gt; 0
+#   (3, 0, 0) =&gt; 0
+#   (0, 0, 1) =&gt; (1//360*t4^4*u^4 - 1//72*t4^2*t5^2*u^4 - 1//6*t4^2*u^2 - 1//2*t4*t5*u^2 + 1//360*t5^4*u^4 - 1//6*t5^2*u^2 - 2)//(t4*t5*u^2)
+#   (1, 0, 1) =&gt; (1//360*t4^4*u^4 - 1//72*t4^2*t5^2*u^4 - 1//6*t4^2*u^2 - 1//2*t4*t5*u^2 + 1//360*t5^4*u^4 - 1//6*t5^2*u^2 - 2)//(t4*t5*u^2)
+#   (0, 0, 2) =&gt; 0
+#   (1, 0, 0) =&gt; (1//360*t4^4*u^4 - 1//72*t4^2*t5^2*u^4 - 1//6*t4^2*u^2 - 1//2*t4*t5*u^2 + 1//360*t5^4*u^4 - 1//6*t5^2*u^2 - 2)//(t4*t5*u^2)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../closed_vertex/">« Closed vertex (Evidence 2.13)</a><a class="docs-footer-nextpage" href="../P2_111/">Local <span>$\mathbb{P}^2$</span> (Evidence 4.2) »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Friday 21 August 2026 23:14">Friday 21 August 2026</span>. Using Julia version 1.12.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
