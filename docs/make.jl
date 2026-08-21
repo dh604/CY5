@@ -49,3 +49,8 @@ makedocs(
     ];
     doctest=true
 )
+
+deploydocs(
+    repo = "github.com/dh604/CY5.git",
+    devbranch = "main",
+)
