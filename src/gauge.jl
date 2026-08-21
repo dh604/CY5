@@ -2,10 +2,10 @@
 @doc raw"""
     gkm_3d_gauge(N::Int64, m::Int64)
 
-Return the GKM graph of the CY3 space $X_{N,m}$ from [main_paper; Section 5](@cite).
+Return the GKM graph of the CY3 space $X_{N,m}$ from [main_paper; Section 3.1](@cite).
 The returned space is Calabi-Yau but not equivariantly Calabi-Yau.
 
-This function is used by [`gkm_5d_gauge`](@ref) to construct the GKM graph of $\mathcal{Z}_{N,m} = X_{N,m}\times\mathbb{C}^2$.
+This function is used by [`gkm_5d_gauge`](@ref) to construct the GKM graph of $Z_{N,m} = X_{N,m}\times\mathbb{C}^2$.
 
 # Example
 ```jldoctest
@@ -71,7 +71,7 @@ end
 @doc raw"""
     gkm_5d_gauge(N::Int64, m::Int64; equiCY::Bool=false)
 
-Return the GKM graph of the CY5 space $\mathcal{Z}_{N,m}$ from [main_paper; Section 5](@cite).
+Return the GKM graph of the CY5 space ${Z}_{N,m}$ from [main_paper; Section 3.1](@cite).
 If the optional argument `equiCY` is set to `true` then the substitution $\epsilon_2=\epsilon_3+\epsilon_4+\epsilon_5$ is applied to make
 the result equivariantly Calabi-Yau.
 

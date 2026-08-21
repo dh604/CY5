@@ -92,34 +92,88 @@ In this case, all predicticted values of $\Omega_\beta$ hold in the tested range
 # Example 3: Behavior when the conjecture fails
 
 Let us also see an example in which the conjectured value of $\Omega_\beta$ does not agree with the true value computed from Gromov-Witten invariants.
-We take $Z=K_{\mathbb{P}^2}\times\mathcal{A}_3$, maximum genus zero, and curve classes for which the properness asumption
-of [main_paper; Conjecture 3.6](@cite) does not hold.
+We take
+```math
+Z=\text{Tot}_{\mathbb{P}^1\times\mathbb{P}^1}(\mathcal{O}(-2,0)\oplus\mathcal{O}(0,-2)\oplus\mathcal{O})
+```
+and let $\beta$ be the curve class of one of the two factor $\mathbb{P}^1$s.
+Then the properness assumption of [main_paper; Conjecture 5.1](@cite) does not hold for $\beta$ and its multiples.
+Let us denote $\beta$ by `b` in the following code.
 
 ```jldoctest
-julia> P2 = projective_space(GKM_graph, 2);
+julia> P1_P1 = hirzebruch_surface(NormalToricVariety, 0)
+Normal toric variety
 
-julia> Ktot = total_space(wedge_product(cotangent_bd(P2), 2));
+julia> P = picard_group(P1_P1)
+Z^2
 
-julia> G = X_times_Ar(Ktot, 3; equiCY = true);
+julia> L1 = toric_line_bundle(P1_P1, -2*P[1]) # O(-2, 0)
+Toric line bundle on a normal toric variety
 
-julia> b = curve_class(G, "1,1", "1,2")
-(1, 0, 0, 0)
+julia> L2 = toric_line_bundle(P1_P1, -2*P[2]) # O(0, -2)
+Toric line bundle on a normal toric variety
 
-julia> Omega = get_Omega_beta(G, [2*b], 0; check_predictions=true, show_bar=false);
-Calculating b=(2, 0, 0, 0), g=0
-Calculating b=(1, 0, 0, 0), g=0
-Prediction fails for (1, 0, 0, 0):
+julia> CY4 = total_space(gkm_vector_bundle_of_toric([L1, L2]))
+GKM graph with 4 nodes, valency 4 and axial function:
+2 -> 1 => (1, 0, 0, 0, -1, 0)
+3 -> 2 => (0, 1, 0, 0, 0, -1)
+4 -> 1 => (0, 1, 0, 0, 0, -1)
+4 -> 3 => (-1, 0, 0, 0, 1, 0)
+Standalone flags:
+1.3 => (0, 0, -1, 0, -2, 0)
+1.4 => (0, 0, 0, -1, 0, -2)
+2.3 => (-2, 0, -1, 0, 0, 0)
+2.4 => (0, 0, 0, -1, 0, -2)
+3.3 => (-2, 0, -1, 0, 0, 0)
+3.4 => (0, -2, 0, -1, 0, 0)
+4.3 => (0, 0, -1, 0, -2, 0)
+4.4 => (0, -2, 0, -1, 0, 0)
+
+julia> G = CY5_from_CY4(CY4; equiCY=true)
+GKM graph with 4 nodes, valency 5 and axial function:
+2,1 -> 1,1 => (1, 0, 0, 0, -1, 0, 0)
+3,1 -> 2,1 => (0, 1, 0, 0, 0, -1, 0)
+4,1 -> 1,1 => (0, 1, 0, 0, 0, -1, 0)
+4,1 -> 3,1 => (-1, 0, 0, 0, 1, 0, 0)
+Standalone flags:
+1,1.3 => (0, 0, -1, 0, -2, 0, 0)
+1,1.4 => (0, 0, 0, -1, 0, -2, 0)
+1,1.5 => (1, 1, 1, 1, 1, 1, 0)
+2,1.3 => (-2, 0, -1, 0, 0, 0, 0)
+2,1.4 => (0, 0, 0, -1, 0, -2, 0)
+2,1.5 => (1, 1, 1, 1, 1, 1, 0)
+3,1.3 => (-2, 0, -1, 0, 0, 0, 0)
+3,1.4 => (0, -2, 0, -1, 0, 0, 0)
+3,1.5 => (1, 1, 1, 1, 1, 1, 0)
+4,1.3 => (0, 0, -1, 0, -2, 0, 0)
+4,1.4 => (0, -2, 0, -1, 0, 0, 0)
+4,1.5 => (1, 1, 1, 1, 1, 1, 0)
+
+julia> b = curve_class(G, Edge(1, 2))
+(0, 1)
+
+julia> get_Omega_beta(G, [b, 2*b, 3*b], 1; check_predictions = true, show_bar=false)
+Calculating b=(0, 1), g=0
+Calculating b=(0, 1), g=1
+Calculating b=(0, 2), g=0
+Calculating b=(0, 2), g=1
+Calculating b=(0, 3), g=0
+Calculating b=(0, 3), g=1
+Prediction holds for (0, 2)
+Prediction holds for (0, 3)
+Prediction fails for (0, 1):
   prediction = 0
-Prediction holds for (2, 0, 0, 0)
 
-julia> Omega[b]
-(9*t4)//(t1^3*u^2 - 3//2*t1^2*t2*u^2 - 3//2*t1^2*t3*u^2 + 3*t1^2*t4*u^2 - 3//2*t1*t2^2*u^2 + 6*t1*t2*t3*u^2 - 3*t1*t2*t4*u^2 - 3//2*t1*t3^2*u^2 - 3*t1*t3*t4*u^2 + t2^3*u^2 - 3//2*t2^2*t3*u^2 + 3*t2^2*t4*u^2 - 3//2*t2*t3^2*u^2 - 3*t2*t3*t4*u^2 + t3^3*u^2 + 3*t3^2*t4*u^2 - 4*t4^3*u^2)
+Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 3 entries:
+  (0, 2) => 0
+  (0, 3) => 0
+  (0, 1) => (1//12*t1^2*t2*u^2 + 1//12*t1^2*t4*u^2 + 1//12*t1^2*t6*u^2 + 1//12*t1*t2^2*u^2 + 1//6*t1*t2*t3*u^2 + 1//6*t1*t2*t5*u^2 - 1//6*t1*t2*t6*u^2 + 1//6*t1*t3*t4*u^2 …
+
 ```
-Let $\beta$ be the curve class denoted by `b` in the code.
 As we see, the conjectured value for $\Omega_\beta$ is zero, but the true value is non-zero.
 The printed output highlights whenever the conjectured value is incorrect.
 
-Mathematically, this example is not a counterexample to [main_paper; Conjecture 3.6](@cite)
+Mathematically, this example is not a counterexample to [main_paper; Conjecture 5.1](@cite)
 because one of the conjecture's assumptions is not satisfied in this case.
 """
 function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, show_bar::Bool=true) where T <: CC
@@ -139,7 +193,8 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
     end
     
     for b in keys(res)
-      p = get_Omega_prediction(G, t, u, b, gMax, res[b])
+      # p = get_Omega_prediction(G, t, u, b, gMax, res[b])
+      p = get_Omega_prediction(G, t, u, b, gMax)
 
       if has_CY_substitution
         p = evaluate(p, CY_subst)

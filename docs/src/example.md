@@ -24,7 +24,7 @@ Throughout, we will be dealing with the Calabi-Yau 5-fold
 Z = \mathcal{A}_2\times\mathbb{C}^2
 ```
 and its equivariantly Calabi-Yau $T$-action given by its description as a _strip geometry_, see [main_paper; Section 2.1](@cite).
-Let $G$ be the GKM graph of $(Z,T)$ and let $\beta\in H_2(Z)$ be the curve class associated to the leftmost edge in [main_paper; picture (11)](@cite).
+Let $G$ be the GKM graph of $(Z,T)$ and let $\beta\in H_2(Z)$ be the curve class associated to the leftmost edge in [main_paper; picture (18)](@cite).
 We load $G$ using the function [`Ar_times_C3`](@ref).
 
 ```jldoctest pipeline_big_example
@@ -63,10 +63,10 @@ julia> R, (t1, t2, t3, t4, t5, u) = polynomial_ring(QQ, ["t1", "t2", "t3", "t4",
 
 julia> max_genus = 1;
 
-julia> get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus, nothing)
+julia> get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus)
 (-1//12*t3^2*t4*u^2 - 1//12*t3^2*t5*u^2 - 1//12*t3*t4^2*u^2 - 1//4*t3*t4*t5*u^2 - 1//12*t3*t5^2*u^2 - t3 - 1//12*t4^2*t5*u^2 - 1//12*t4*t5^2*u^2 - t4 - t5)//(t3*t4*t5*u^2)
 
-julia> get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, 2*beta, max_genus, nothing)
+julia> get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, 2*beta, max_genus)
 0
 ```
 
@@ -121,7 +121,7 @@ julia> GW_CY5.gkm_5d_P2_111_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2
 Indeed, this matches the output of [`get_Omega_prediction`](@ref):
 
 ```jldoctest pipeline_big_example
-julia> get_Omega_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2, nothing)
+julia> get_Omega_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2)
 1//32*t1^2*u^2 - 1//32*t1*t2*u^2 - 1//32*t1*t3*u^2 + 1//32*t2^2*u^2 - 1//32*t2*t3*u^2 + 1//32*t3^2*u^2 - 1//8
 ```
 
@@ -258,7 +258,7 @@ its optional argument `check_predictions=true` is set.
 Note that the true value `Omega[beta]` above does not match the predicted value of $\Omega_\beta$ from above yet, which was as follows:
 
 ```jldoctest pipeline_big_example
-julia> p = get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus, nothing)
+julia> p = get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, beta, max_genus)
 (-1//12*t3^2*t4*u^2 - 1//12*t3^2*t5*u^2 - 1//12*t3*t4^2*u^2 - 1//4*t3*t4*t5*u^2 - 1//12*t3*t5^2*u^2 - t3 - 1//12*t4^2*t5*u^2 - 1//12*t4*t5^2*u^2 - t4 - t5)//(t3*t4*t5*u^2)
 
 julia> p == Omega[beta]

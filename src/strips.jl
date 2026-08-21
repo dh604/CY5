@@ -1,16 +1,16 @@
 @doc raw"""
     gkm_3d_strip(ups_and_downs::Vector{Int64}; equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
 
-Create the GKM graph of the 3d strip geometry described by `ups_and_downs` (see [main_paper; Section 4](@cite)).
+Create the GKM graph of the 3d strip geometry described by `ups_and_downs` (see [main_paper; Section 2.1](@cite)).
 
 ## Arguments
-* `ups_and_downs`: a vector of non-zero integers with the following meaning in terms of [main_paper; (4)](@cite): there will
+* `ups_and_downs`: a vector of non-zero integers with the following meaning in terms of [main_paper; (18)](@cite): there will
     be `ups_and_downs[1]` flags up (if positive) or down (if negative), followed by `ups_and_downs[2]` flags up or down,
     and so on.
 * `equiCY`: If this optional argument with default value `false` is set to `true`, the returned space will be linearized to be equivariantly Calabi-Yau.
 
 # Weight convention:
-In terms of [main_paper; (4)](@cite): flags pointing up have weight $\epsilon_2$, flags pointing down have weight $\epsilon_3$, and
+In terms of [main_paper; (18)](@cite): flags pointing up have weight $\epsilon_2$, flags pointing down have weight $\epsilon_3$, and
 the flag at vertex 1 pointing left has weight $\epsilon_1$.
 
 # Example

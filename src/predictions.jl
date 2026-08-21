@@ -1,6 +1,6 @@
 
 @doc raw"""
-    get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta, max_genus::Int64, res)
+    get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta, max_genus::Int64)
 
 Return the conjectural prediction of $\Omega_\beta$ for the space with GKM graph `G`.
 
@@ -11,10 +11,6 @@ Return the conjectural prediction of $\Omega_\beta$ for the space with GKM graph
 * `beta`: the curve class $\beta$ for which the conjectural value of $\Omega_\beta$ should be returned.
 * `max_genus`: the maximum genus up to which the conjectural value of $\Omega_\beta$ should be returned.
       That is, the highest exponent of $u$ in the returned value is `2*max_genus - 1`.
-
-!!! warning
-    The field `res` is needed as the prediction is phrased in terms of the calculated genus zero invariants
-    for some cases. This will be removed in future.
 
 !!! note
     This function requires the attribute `:example_type` of `G` to be set.
@@ -36,7 +32,7 @@ julia> max_genus = 1;
 julia> R, (t1, t2, t3, t4, t5, u) = polynomial_ring(QQ, ["t1", "t2", "t3", "t4", "t5", "u"])
 (Multivariate polynomial ring in 6 variables over QQ, QQMPolyRingElem[t1, t2, t3, t4, t5, u])
 
-julia> prediction = get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, b, max_genus, nothing)
+julia> prediction = get_Omega_prediction(G, [t1, t2, t3, t4, t5], u, b, max_genus)
 (-1//12*t3^2*t4*u^2 - 1//12*t3^2*t5*u^2 - 1//12*t3*t4^2*u^2 - 1//4*t3*t4*t5*u^2 - 1//12*t3*t5^2*u^2 - t3 - 1//12*t4^2*t5*u^2 - 1//12*t4*t5^2*u^2 - t4 - t5)//(t3*t4*t5*u^2)
 ```
 
@@ -71,7 +67,7 @@ The above is an illustration of how the pipeline works.
 When [`get_Omega_beta`](@ref) is used with `check_predictions=true`, it uses the same mechanism
 to determine if the actual $\Omega_\beta$ matches the conjectured one.
 """
-function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res) # TODO: remove res dependency, as unused.
+function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
   @req has_attribute(G, :example_type) "G has no prediction for Omega."
   et = get_attribute(G, :example_type)
 
@@ -84,7 +80,8 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
   elseif et == :CY5_from_CY4
     return zero(u)
   elseif et == :P1_chain_5d
-    return gkm_5d_free_strip_prediction(G, t, u, beta, max_genus, res)
+    error("get_Omega_prediction's support for P1_chain_5d was discontinued.")
+    # return gkm_5d_free_strip_prediction(G, t, u, beta, max_genus, res)
   elseif et == :P2_111
     return gkm_5d_P2_111_prediction(G, t, u, beta, max_genus)
   elseif et == :P3_04

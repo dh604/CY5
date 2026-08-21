@@ -1,4 +1,4 @@
-# Test GW vanishing for (O(-1,-1)+O(-1,-1) on P1xP1) x C
+# Julia code to test GW vanishing for (O(-1,-1)+O(-1,-1)+O on P1xP1
 
 using Oscar, GKMtools, GW_CY5
 
@@ -13,17 +13,14 @@ c = curve_class(G, Edge(1, 4))
 
 # perform tests
 
-get_Omega_beta(G, [4*b], 3; check_predictions = true)
-# all zero
-
-get_Omega_beta(G, [3*b], 3; check_predictions = true)
-# all zero
+get_Omega_beta(G, [b, 2*b, 3*b, 4*b], 3; check_predictions = true)
+# All predictions hold.
 
 get_Omega_beta(G, [2*b+2*c], 3; check_predictions = true)
-# all zero
+# All predictions hold.
 
 get_Omega_beta(G, [2*b+c], 3; check_predictions = true)
-# all zero
+# All predictions hold.
 
 get_Omega_beta(G, [3*b+c], 3; check_predictions = true)
-# all zero
+# All predictions hold.

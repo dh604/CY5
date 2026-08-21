@@ -4,12 +4,9 @@ _A Julia package to compute the membrane indices_ $\Omega_\beta$ _of toric CY5s.
 
 We build on the Julia package [GKMtools.jl](https://mgemath.github.io/GKMtools.jl/) [HM25_paper, HM25_GKMtools](@cite) to compute equivariant Gromov-Witten invariants of the relevant spaces.
 
-!!! warning
-    **TODO:** complete read-through once the article is reasonably ready, to make all notation and references consistent with the article.
-
 ## Contents
 
-* [Installation instructions](@ref "Installation")
+* [Installation instructions](@ref gw_installation)
 * [Pipeline](pipeline.md): explanation of the workflow of analyzing any given example with this package.
 * [Spaces](spaces.md): list of spaces that are implemented to work with the pipeline.
 * Examples:
@@ -18,7 +15,7 @@ We build on the Julia package [GKMtools.jl](https://mgemath.github.io/GKMtools.j
 * [Evidence](conj/overview.md): for each numerical experiment cited as *Evidence* in the paper, we provide code to reproduce the stated results.
 
 
-## Installation
+## [Installation](@id gw_installation)
 
 First, install **OSCAR** using the instructions [here](https://www.oscar-system.org/install/).
 After that, open Julia and install **GW_CY5.jl** by typing the following code.

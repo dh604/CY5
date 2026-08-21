@@ -2,7 +2,7 @@
     gkm_3d_closed_vertex() -> GKMtools.AbstractGKM_graph
 
 Return the GKM graph of the 3d closed vertex geometry.
-The weights are defined to agree with the first figure in [main_paper; Section 7.1](@cite).
+The weights are defined to agree with [main_paper; Figure 4](@cite).
 
 # Example
 ```jldoctest

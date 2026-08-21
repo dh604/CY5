@@ -1,13 +1,17 @@
-(# Local $\mathbb{P}^2$
+# Local $\mathbb{P}^2$
 
 The purpose of the file `local_P2.sage` is to test different claims made in [main_paper](@cite) about PT series of threefolds inside local projective planes.
 
 More precisely, for the fivefold
-$$ \mathrm{Tot}_{\mathbb{P}^2}\, \mathcal{O}(-1) \oplus \mathcal{O}(-1) \oplus \mathcal{O}(-1) $$
+```math
+\mathrm{Tot}_{\mathbb{P}^2}\, \mathcal{O}(-1) \oplus \mathcal{O}(-1) \oplus \mathcal{O}(-1)
+```
 we show that the PT series of the threefold $\mathrm{Tot}_{\mathbb{P}^2}\, \mathcal{O}(-1)$ inside this ambient space matches with some explicit formulae for membrane indices $\Omega_{dH}$ in degree $d \leq 4$ as discussed in [main_paper; Section 4.1](@cite).
 
 For the fivefold
-$$ Z=\mathrm{Tot}_{\mathbb{P}^2}\, \mathcal{O}(-2) \oplus \mathcal{O}(-1) \oplus \mathcal{O}  $$
+```math
+Z=\mathrm{Tot}_{\mathbb{P}^2}\, \mathcal{O}(-2) \oplus \mathcal{O}(-1) \oplus \mathcal{O}
+```
 we test that for all six distinct choices of fibrewise actions of $\mathbb{C}^{\times}_q$ on $Z$ with three-dimensional fixed locus $X$, the associated PT series vanishes. This is a special instance of [main_paper; Conjecture 5.6](@cite).
 
 By running the script `local_P2.sage` one can hence reproduce Evidence 4.4 and parts of Evidence 5.7 in our paper. The other part of Evidence 5.7 is checked [here](local_P1xP1.md). The script produces the following output:

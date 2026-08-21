@@ -1,4 +1,4 @@
-# Test GW vanishing for (O(-2,0)+O(0,-2) on P1xP1) x C
+# Julia code to test GW vanishing for O(-2,0)+O(0,-2)+O on P1xP1
 
 using Oscar, GKMtools, GW_CY5
 
@@ -12,19 +12,15 @@ G = CY5_from_CY4(CY4; equiCY=true)
 b = curve_class(G, Edge(1, 2))
 c = curve_class(G, Edge(1, 4))
 
-# perform tests
-
-get_Omega_beta(G, [4*b], 3; check_predictions = true)
-# non-zero for b, zero for 2b, 4b
-
-get_Omega_beta(G, [3*b], 3; check_predictions = true)
-# nonzero for b, zero for 3b
-
 get_Omega_beta(G, [2*b+2*c], 3; check_predictions = true)
-# all zero
+# All predictions hold
 
 get_Omega_beta(G, [2*b+c], 3; check_predictions = true)
-# all zero
+# All predictions hold
 
 get_Omega_beta(G, [3*b+c], 3; check_predictions = true)
-# all zero
+# All predictions hold
+
+get_Omega_beta(G, [b, 2*b, 3*b, 4*b], 3; check_predictions = true)
+# Didn't get "All predictions hold":
+# The computed Omega_beta was non-zero for b, zero for 2b, 3b, 4b.

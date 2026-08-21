@@ -1,9 +1,13 @@
 # Local $\mathbb{P}^1 \times \mathbb{P}^1$
 
 The purpose of the file `local_P1xP1.sage` is to probe the vanishing claimed for the two local surfaces
-$$ \mathrm{Tot}_{\mathbb{P}^1 \times \mathbb{P}^1}\, \mathcal{O}(-1,-1) \oplus \mathcal{O}(-1,-1) \oplus \mathcal{O} $$
+```math
+\mathrm{Tot}_{\mathbb{P}^1 \times \mathbb{P}^1}\, \mathcal{O}(-1,-1) \oplus \mathcal{O}(-1,-1) \oplus \mathcal{O}
+```
 and
-$$ \mathrm{Tot}_{\mathbb{P}^1 \times \mathbb{P}^1}\, \mathcal{O}(-2,0) \oplus \mathcal{O}(0,-2) \oplus \mathcal{O} $$
+```math
+\mathrm{Tot}_{\mathbb{P}^1 \times \mathbb{P}^1}\, \mathcal{O}(-2,0) \oplus \mathcal{O}(0,-2) \oplus \mathcal{O}
+```
 in [main_paper; Evidence 5.7](@cite).
 
 For the first, the claim is that the PT series of any threefold inside the fivefold vanishes. We test this for the two distinct choices of threefolds that arise as some fixed locus of a fibre-wise $\mathbb{C}^{\times}_q$-action on the fivefold.

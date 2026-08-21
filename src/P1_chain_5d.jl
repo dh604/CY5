@@ -1,4 +1,4 @@
-
+# Not included in the docs for the time being, as it was not required for the paper in the end.
 @doc raw"""
     gkm_5d_p1_chain(steps::Vector{Vector{Int64}}, equiCY::Bool=false) -> GKMtools.AbstractGKM_graph
 
@@ -15,6 +15,9 @@ Return a 5d chain of $\mathbb{P}^1$s, where the degrees of the linear summands o
 !!! note
     The first step must have `2` in the last position.
     This ensures that the standalone flags at vertex `1` have weights $\epsilon_1,\dots,\epsilon_4$.
+
+!!! warning
+    We disabled the support of [`get_Omega_prediction`](@ref) for this function as it was no longer needed.
 
 # Example
 Here is an example which does not come from a 3d strip geometry, even though it is of the shape

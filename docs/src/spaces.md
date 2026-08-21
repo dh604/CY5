@@ -17,12 +17,7 @@ minus_one_minus_one_chain_3d
 minus_one_minus_one_chain
 ```
 
-## Free $\mathbb{P}^1$ chains
-```@docs
-gkm_5d_p1_chain
-```
-
-## Closed vertex
+## [Closed vertex](@id spaces_closed_vertex)
 
 ```@docs
 gkm_3d_closed_vertex

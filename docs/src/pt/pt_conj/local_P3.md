@@ -1,7 +1,9 @@
 # Local $\mathbb{P}^3$
 
 The purpose of the file `local_P3.sage` is to test our conjectural formulas for membrane indices of the fivefolds
-$$ \mathrm{Tot}_{\mathbb{P}^3}\, \mathcal{O}(-a) \oplus \mathcal{O}(a-4), \qquad 0 \leq a \leq 4 $$
+```math
+\mathrm{Tot}_{\mathbb{P}^3}\, \mathcal{O}(-a) \oplus \mathcal{O}(a-4), \qquad 0 \leq a \leq 4
+```
 against PT calculations. The formulae for membrane indices are partly stated in [main_paper; Section 4.2](@cite). All remaining formulae can be found in `CY5\tests\omega_data\`.
 
 The script `local_P2.sage` reads the files with our conjectural formulae and compares them with the PT series computed via the K-theoretic vertex. The script produces the following output, which we record in our paper as [main_paper; Evidence 4.9](@cite):
