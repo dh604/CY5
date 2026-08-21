@@ -91,12 +91,7 @@ function get_Omega_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_
   elseif et == :P3_22
     return gkm_5d_P3_22_prediction(G, t, u, beta, max_genus)
   elseif et == :gauge
-    # switch here between the gauge prediction implementations.
-    # gauge_prediction.jl / gauge_prediction_2.jl follow an earlier, mistaken spec;
-    # gauge_prediction_3.jl follows the revised spec in GAUGE_latex_specs.tex.
-    # return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
-    # return gkm_5d_gauge_prediction_2(G, t, u, beta, max_genus)
-    return gkm_5d_gauge_prediction_3(G, t, u, beta, max_genus)
+    return gkm_5d_gauge_prediction(G, t, u, beta, max_genus)
   else
     error("Example type $et is not implemented.")
   end
@@ -200,11 +195,13 @@ end
 # UPDATE: gkm_5d_free_strip_prediction below is not required anymore as the generalized conjecture fails.
 #
 
-# TODO: There could be cancellations un the weights of the normal bundle, e.g.
+# Obsolete TODO: There could be cancellations un the weights of the normal bundle, e.g.
 # 2e1 * e2 // e1 ** 2e2
 # that don't carry over to cancel on the level of sinch.
 # Thus, we really need a sinch factor for each weight of the normal bundle.
 # Reimplement it that way.
+#
+# Obsolete since we don't need free P1 chains anymore for the paper.
 function gkm_5d_free_strip_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64, res)
 
   @req !iszero(beta) "beta must not be zero"
