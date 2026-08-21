@@ -242,36 +242,6 @@ function gkm_5d_free_strip_prediction(G::AbstractGKM_graph, t::Vector, u, beta::
 
 end
 
-function gkm_5d_gauge_prediction(G::AbstractGKM_graph, t::Vector, u, beta::CC, max_genus::Int64)
-
-  N = get_attribute(G, :N)::Int
-  m = get_attribute(G, :m)::Int
-
-  H2 = parent(beta)
-  r = rank(H2)
-  L = 2*N - 1
-
-  # Build pi: M/~ -> H2 as an integer matrix Mmat with one column per generator.
-  cols = Vector{Vector{Int}}(undef, L)
-  for i in 1:N
-    c = curve_class(G, "v$i", "w$i")
-    cols[i] = [Int(c[k]) for k in 1:r]
-  end
-  for j in 1:N-1
-    c = curve_class(G, "v$(j+1)", "v$j")
-    cols[N + j] = [Int(c[k]) for k in 1:r]
-  end
-
-  Mmat = zeros(Int, r, L)
-  for i in 1:L, k in 1:r
-    Mmat[k, i] = cols[i][k]
-  end
-
-  beta_vec = ntuple(k -> Int(beta[k]), r)
-  contrib = omega_beta_gauge_h2(N, m, Mmat, beta_vec, max_genus)
-  return _laurent_series_to_user_ring(contrib, t, u)
-end
-
 function _laurent_series_to_user_ring(series, t::Vector, u)
   Fu = fraction_field(parent(u))
   uF = Fu(u)
