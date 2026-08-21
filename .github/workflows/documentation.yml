@@ -28,12 +28,6 @@ jobs:
         shell: julia --color=yes --project=docs {0}
         run: |
           using Pkg
-
-          Pkg.add(PackageSpec(
-            url="https://github.com/mgemath/GKMtools.jl",
-            rev="GKMtest",
-          ))
-
           Pkg.develop(PackageSpec(path=pwd()))
           Pkg.instantiate()
       - name: Build and deploy
