@@ -152,7 +152,7 @@ Standalone flags:
 julia> b = curve_class(G, Edge(1, 2))
 (0, 1)
 
-julia> get_Omega_beta(G, [b, 2*b, 3*b], 1; check_predictions = true, show_bar=false)
+julia> Omega = get_Omega_beta(G, [b, 2*b, 3*b], 1; check_predictions = true, show_bar=false);
 Calculating b=(0, 1), g=0
 Calculating b=(0, 1), g=1
 Calculating b=(0, 2), g=0
@@ -164,11 +164,14 @@ Prediction holds for (0, 3)
 Prediction fails for (0, 1):
   prediction = 0
 
-Dict{AbstractAlgebra.FPModuleElem{ZZRingElem}, Any} with 3 entries:
-  (0, 2) => 0
-  (0, 3) => 0
-  (0, 1) => (1//12*t1^2*t2*u^2 + 1//12*t1^2*t4*u^2 + 1//12*t1^2*t6*u^2 + 1//12*t1*t2^2*u^2 + 1//6*t1*t2*t3*u^2 + 1//6*t1*t2*t5*u^2 - 1//6*t1*t2*t6*u^2 + 1//6*t1*t3*t4*u^2 …
+julia> Omega[b]
+(1//12*t1^2*t2*u^2 + 1//12*t1^2*t4*u^2 + 1//12*t1^2*t6*u^2 + 1//12*t1*t2^2*u^2 + 1//6*t1*t2*t3*u^2 + 1//6*t1*t2*t5*u^2 - 1//6*t1*t2*t6*u^2 + 1//6*t1*t3*t4*u^2 + 1//6*t1*t3*t6*u^2 + 1//6*t1*t4*t5*u^2 + 1//6*t1*t5*t6*u^2 + 1//12*t1*t6^2*u^2 - t1 + 1//12*t2^2*t3*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t3^2*u^2 + 1//6*t2*t3*t5*u^2 - 1//6*t2*t3*t6*u^2 + 1//12*t2*t5^2*u^2 - 1//6*t2*t5*t6*u^2 + 1//12*t3^2*t4*u^2 + 1//12*t3^2*t6*u^2 + 1//6*t3*t4*t5*u^2 + 1//6*t3*t5*t6*u^2 + 1//12*t3*t6^2*u^2 - t3 + 1//12*t4*t5^2*u^2 + 1//12*t5^2*t6*u^2 + 1//12*t5*t6^2*u^2 - t5)//(t1*t2*t4*u^2 + 2*t1*t2*t6*u^2 + 1//2*t1*t4^2*u^2 + t1*t4*t6*u^2 + t2^2*t4*u^2 + 2*t2^2*t6*u^2 + t2*t3*t4*u^2 + 2*t2*t3*t6*u^2 + 3//2*t2*t4^2*u^2 + t2*t4*t5*u^2 + 4*t2*t4*t6*u^2 + 2*t2*t5*t6*u^2 + 2*t2*t6^2*u^2 + 1//2*t3*t4^2*u^2 + t3*t4*t6*u^2 + 1//2*t4^3*u^2 + 1//2*t4^2*t5*u^2 + 3//2*t4^2*t6*u^2 + t4*t5*t6*u^2 + t4*t6^2*u^2)
 
+julia> Omega[2*b]
+0
+
+julia> Omega[3*b]
+0
 ```
 As we see, the conjectured value for $\Omega_\beta$ is zero, but the true value is non-zero.
 The printed output highlights whenever the conjectured value is incorrect.
