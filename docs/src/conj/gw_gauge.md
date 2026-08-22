@@ -68,7 +68,7 @@ In this example, all equivariant parameters `t1`, `t3`, `t4`, `t5` appear in $\O
 Indeed, for $|m|<N$, the conjectured formula only contains the equivariant parameters `t4` and `t5`.
 (Note that `t2` does not appear because it is expressed in terms of the other parameters on the equivariantly Calabi-Yau torus.)
 
-Under each call to [`get_Omega_beta`](@ref), we include the output of the computed values for $\Omega_\beta$ as a comment, showing the equivariant parameters `t1`, `t3`, `t4`, `t5`.
+Under each call to [`get_Omega_beta`](@ref), we include the output of the computed values for $\Omega_\beta$ as a comment, featuring all equivariant parameters `t1`, `t3`, `t4`, `t5`.
 
 ```@eval
 using Markdown

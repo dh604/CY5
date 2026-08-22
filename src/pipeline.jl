@@ -180,7 +180,7 @@ Mathematically, this example is not a counterexample to [main_paper; Conjecture 
 because one of the conjecture's assumptions is not satisfied in this case.
 """
 function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; check_predictions::Bool=false, show_bar::Bool=true) where T <: CC
-  
+
   res, t, u = get_GW_beta(G, betas, gMax; show_bar=show_bar, return_t_u=true)
 
   res = cc_mobius(res)
@@ -194,7 +194,7 @@ function get_Omega_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; che
     if has_CY_substitution
       CY_subst = vcat([evaluate(x, t) for x in get_attribute(G, :equiCY_substitution)], [u])
     end
-    
+
     for b in keys(res)
       # p = get_Omega_prediction(G, t, u, b, gMax, res[b])
       p = get_Omega_prediction(G, t, u, b, gMax)
@@ -227,7 +227,7 @@ end
     get_GW_beta(G::AbstractGKM_graph, betas::Vector{T}, gMax::Int64; show_bar::Bool=true) where T <: CC
 
 Let $(Z,T)$ be a GKM space with GKM graph $G$.
-Return the truncated Grommov--Witten series
+Return the truncated Gromov--Witten series
 ```math
 \sum_{g \ge 0}^{\text{gMax}}u^{2g-2} GW_{g,\beta}(Z,T)
 ```

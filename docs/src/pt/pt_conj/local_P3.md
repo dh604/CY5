@@ -1,6 +1,6 @@
 # Local $\mathbb{P}^3$
 
-The purpose of the file `local_P3.sage` is to test our conjectural formulas for membrane indices of the fivefolds
+The purpose of the file `local_P3.sage` is to test our conjectural formulae for membrane indices of the fivefolds
 ```math
 \mathrm{Tot}_{\mathbb{P}^3}\, \mathcal{O}(-a) \oplus \mathcal{O}(a-4), \qquad 0 \leq a \leq 4
 ```

@@ -6,7 +6,7 @@ We provide evidence for [main_paper; Conjecture 2.4](@cite) which concerns $T$-s
 
 The following Julia code verifies [main_paper; Conjecture 2.4](@cite) for $\mathcal{A}_r\times \mathbb{C}^3$ with $r=3$ up to genus 3.
 
-The curve classes `b,c,d` correspond to the three $T$-stable rational curves  denoted and are denoted $\beta_1,\beta_2,\beta_3$ in the paper.
+The curve classes `b,c,d` correspond to the three $T$-stable rational curves and are denoted $\beta_1,\beta_2,\beta_3$ in the paper.
 Note that [`get_Omega_beta`](@ref) checks all curve classes passed to it in the second argument, as well as all curve classes whose multiples appear in that list.
 For example, the command `get_Omega_beta(G, [6*b], max_genus; check_predictions=true)` checks the conjecture for `b, 2*b, 3*b, 6*b` (see [Pipeline](@ref) for more details).
 

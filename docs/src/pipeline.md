@@ -17,7 +17,7 @@ Let $u$ and $Q$ be formal variables.
 Then
 
 ```math
-\Omega_\beta(\epsilon, u)\in \mathbb{Q}(\epsilon_1,\dots,\epsilon_r, u)
+\Omega_\beta(\epsilon, u)\in \mathbb{Q}(\epsilon_1,\dots,\epsilon_r)[\![u]\!]
 ```
 
 is defined by

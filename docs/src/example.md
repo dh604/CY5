@@ -21,7 +21,7 @@ julia> using Oscar, GKMtools, GW_CY5
 Throughout, we will be dealing with the Calabi-Yau 5-fold
 
 ```math
-Z = \mathcal{A}_2\times\mathbb{C}^2
+Z = \mathcal{A}_2\times\mathbb{C}^3
 ```
 and its equivariantly Calabi-Yau $T$-action given by its description as a _strip geometry_, see [main_paper; Section 2.1](@cite).
 Let $G$ be the GKM graph of $(Z,T)$ and let $\beta\in H_2(Z)$ be the curve class associated to the leftmost edge in [main_paper; picture (18)](@cite).
@@ -102,7 +102,7 @@ For those, the only way to arrive at the conjectural expression of $\Omega_\beta
 For these examples, we saved the resulting expressions in the folder `test/omega_data/` (_"manual prediction"_).
 These expressions are then loaded into Julia by the internal predictor function of the example in question.
 
-For example, the internal prediction function for the space $\text{Tot}_\mathbb{P}^2(\mathcal{O}(-1)\oplus\mathcal{O}(-1)\oplus\mathcal{O}(-1))$ given by
+For example, the internal prediction function for the space $\text{Tot}_{\mathbb{P}^2}(\mathcal{O}(-1)\oplus\mathcal{O}(-1)\oplus\mathcal{O}(-1))$ given by
 [`gkm_5d_P2_111`](@ref) is `GW_CY5.gkm_5d_P2_111_prediction`.
 It reads the files `test/omega_data/Omega_P2_111_num.dat` and `test/omega_data/Omega_P2_111_den.dat` to produce the following output in degree one and genus up to 2.
 
@@ -125,12 +125,12 @@ julia> get_Omega_prediction(Tot_P2_111, [t1, t2, t3, t4, t5], u, b, 2)
 1//32*t1^2*u^2 - 1//32*t1*t2*u^2 - 1//32*t1*t3*u^2 + 1//32*t2^2*u^2 - 1//32*t2*t3*u^2 + 1//32*t3^2*u^2 - 1//8
 ```
 
-We now return to the running example $Z = \mathcal{A}_2\times\mathbb{C}^2$ of this page.
+We now return to the running example $Z = \mathcal{A}_2\times\mathbb{C}^3$ of this page.
 
 ## Getting $\Omega_\beta$ from GW invariants
 
 Next, we explain how [`get_Omega_beta`](@ref) computes the membrane indices $\Omega_\beta$ from the truncated Gromov-Witten generating series produced by [`get_GW_beta`](@ref).
-In our running example $Z = \mathcal{A}_2\times\mathbb{C}^2$, this produces the following in degree up to 2 and maximum genus 1.
+In our running example $Z = \mathcal{A}_2\times\mathbb{C}^3$, this produces the following in degree up to 2 and maximum genus 1.
 
 ```jldoctest pipeline_big_example
 julia> GW = get_GW_beta(G, [beta, 2*beta], max_genus; show_bar=false);
@@ -158,7 +158,7 @@ Extracting the coefficient of $Q^\beta$ gives
 ```math
 \sum_{g\ge 0} u^{2g-2}GW_{g,\beta}(X,T)
 =
-\sum_{k\mid \beta} 
+\sum_{k\mid \beta}
 \frac{1}{k} \Omega_{\beta/k}(\epsilon,ku)
 ```
 On the right, the sum is over all positive integers $k$ dividing $\beta$.
@@ -270,7 +270,7 @@ The reason is that the following attribute is set.
 julia> has_attribute(G, :equiCY_substitution)
 true
 ```
-This means that we still need to impose the equivariantly Calabi-Yau condition on the equivariant parameters of the predicted value.
+This means that we still need to impose the Calabi-Yau condition on the equivariant parameters of the predicted value.
 To know what the right substitution is, [`get_Omega_beta`](@ref) internally does the following.
 
 ```jldoctest pipeline_big_example
@@ -284,7 +284,7 @@ julia> get_attribute(G, :equiCY_substitution)
 ```
 This means that, to impose the equivariantly Calabi-Yau condition, we need to substitute
 $\epsilon_3 = -\epsilon_2-\epsilon_4-\epsilon_5$.
-Indeed, the difference between the true value `Omega[beta]` and the predicted value `p` before imposing the equivariantly Calabi-Yau
+Indeed, the difference between the true value `Omega[beta]` and the predicted value `p` before imposing the Calabi-Yau condition
 can be seen to be divisible by $\epsilon_2+\epsilon_3+\epsilon_4+\epsilon_5$:
 
 ```jldoctest pipeline_big_example
@@ -308,7 +308,7 @@ julia> CY_subst = vcat([evaluate(x, t) for x in get_attribute(G, :equiCY_substit
 julia> prediction_equi_CY = evaluate(p, CY_subst)
 (1//12*t2^2*t4*u^2 + 1//12*t2^2*t5*u^2 + 1//12*t2*t4^2*u^2 + 1//12*t2*t4*t5*u^2 + 1//12*t2*t5^2*u^2 - t2)//(t2*t4*t5*u^2 + t4^2*t5*u^2 + t4*t5^2*u^2)
 ```
-This is now the predicted value of $\Omega_\beta$ after taking into account that we have an equivariantly Calabi-Yau relation between the
+This is now the predicted value of $\Omega_\beta$ after taking into account that we have a Calabi-Yau relation between the
 equivariant parameters.
 As expected, it matches the true value of $\Omega_\beta$ computed from Gromov-Witten invariants:
 
