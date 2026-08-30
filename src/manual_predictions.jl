@@ -29,6 +29,7 @@ end
 # Used during parsing to avoid O(n²) cost of sequential Oscar polynomial additions.
 const _TermDict = Dict{Vector{Int}, QQFieldElem}
 
+# a := a + b
 function _dict_add!(a::_TermDict, b::_TermDict)
   for (ev, c) in b
     a[ev] = get(a, ev, QQ(0)) + c
@@ -36,6 +37,7 @@ function _dict_add!(a::_TermDict, b::_TermDict)
   return a
 end
 
+# a := a - b
 function _dict_sub!(a::_TermDict, b::_TermDict)
   for (ev, c) in b
     a[ev] = get(a, ev, QQ(0)) - c
@@ -43,10 +45,12 @@ function _dict_sub!(a::_TermDict, b::_TermDict)
   return a
 end
 
+# Return -a, not changing a.
 function _dict_neg(a::_TermDict)
   return _TermDict(ev => -c for (ev, c) in a)
 end
 
+# return a * b, not changing a or b
 function _dict_mul(a::_TermDict, b::_TermDict)
   result = _TermDict()
   sizehint!(result, length(a) * length(b))
@@ -200,12 +204,24 @@ function _enum_exps_helper!(result, current, pos, remaining, n_vars)
 end
 
 # Substitute qi = exp(ti) using direct multinomial coefficient computation.
+# The input polynomial must have integer coefficients, despite being over QQ.
 # For each monomial c*q^a, exp(a·t) = sum_{|k|<=deg} prod(a_i^k_i/k_i!) * t^k.
 # Accumulates contributions using Int128 arithmetic, avoiding Oscar polynomial ops.
 function _substitute_exp_in_poly(f::QQMPolyRingElem, t::Vector{QQMPolyRingElem}, deg::Int)
   R = parent(t[1])
   iszero(f) && return zero(R)
   n_vars = length(t)
+
+  # Certify that every fixed-width intermediate below is representable.
+  coeff_abs_sum = ZZ(0)
+  max_a = 0
+  for (c, ev) in zip(AbstractAlgebra.coefficients(f), AbstractAlgebra.exponent_vectors(f))
+    isone(denominator(c)) || error("exponential substitution requires integer coefficients")
+    coeff_abs_sum += abs(numerator(c))
+    max_a = max(max_a, maximum(ev))
+  end
+  factorial(ZZ(deg)) <= typemax(Int) || error("factorials do not fit in Int")
+  coeff_abs_sum * ZZ(max(1, max_a))^deg <= typemax(Int128) || error("exponential substitution may overflow Int128")
 
   # Enumerate target exponent vectors
   target_exps = _enumerate_exps(n_vars, deg)
@@ -221,7 +237,6 @@ function _substitute_exp_in_poly(f::QQMPolyRingElem, t::Vector{QQMPolyRingElem},
   end
 
   # Precompute power table: pow_table[a+1, k+1] = a^k as Int128
-  max_a = maximum(maximum(ev) for ev in AbstractAlgebra.exponent_vectors(f))
   pow_table = Matrix{Int128}(undef, max_a + 1, deg + 1)
   for a in 0:max_a
     pow_table[a + 1, 1] = Int128(1)
@@ -332,6 +347,7 @@ load_omega_data(prefix::String, d_max::Int; kwargs...) =
 
 Substitute $q_i = \exp(t_i)$ in each rational function in `Qs` and expand
 as a power series in $t_0,\ldots,t_4$ truncated at total degree `deg`.
+The numerator and denominator polynomials must have integer coefficients.
 
 `Qs` is a `Dict{Int, Q}` as returned by [`load_omega_data`](@ref).
 
