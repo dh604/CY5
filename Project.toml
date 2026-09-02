@@ -1,7 +1,7 @@
 name = "GW_CY5"
 uuid = "9d716e1b-4291-4ffc-b550-8d2805581b65"
 authors = ["Daniel Holmes <daniel.holmes@ist.ac.at>"]
-version = "1.0.0-DEV"
+version = "1.0.0"
 
 [deps]
 GKMtools = "cb0ce832-b756-443a-91cf-e9266e6225ad"
