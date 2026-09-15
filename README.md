@@ -1,6 +1,6 @@
 # CY5
 
-Companion repository for the paper _Experiments with Membranes, Maps, and Sheaves_ by Daniel Holmes and Yannik Schuler.
+Companion repository for the paper [_Experiments with Membranes, Maps, and Sheaves_](https://arxiv.org/abs/2609.03152) by Daniel Holmes and Yannik Schuler.
 
 **[Documentation Webpage](https://dh604.github.io/CY5/)**
 
